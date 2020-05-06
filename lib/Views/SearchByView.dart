@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-class SearchPageView extends StatefulWidget {
-  int userID;
-  String userName;
-  int hospitalID;
+import 'package:patientapp/Model/AppointmentInfo.dart';
+import 'SpecializationView.dart';
 
-  SearchPageView({Key key, @required this.userID, @required this.userName, @required this.hospitalID}) : super(key: key);
+class SearchPageView extends StatefulWidget {
+  AppointmentInfo info;
+  SearchPageView({Key key,this.info}) : super(key: key);
 
   @override
-  _SearchPageViewState createState() => _SearchPageViewState();
+  _SearchPageViewState createState() => _SearchPageViewState(info:this.info);
 }
 
 class _SearchPageViewState extends State<SearchPageView> {
-  int userID;
-  String userName;
-  int hospitalID;
-  _SearchPageViewState({Key key, @required this.userID, @required this.userName, @required this.hospitalID});
+  AppointmentInfo info;
+  _SearchPageViewState({Key key, @required this.info});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +29,7 @@ class _SearchPageViewState extends State<SearchPageView> {
               padding: EdgeInsets.all(8.0),
               splashColor: Colors.blueAccent,
               onPressed: () {
-                /*...*/
+                this.navigateToSpecialization(this.info);
               },
               child: Text(
                 "Search By Specialization",
@@ -55,6 +53,15 @@ class _SearchPageViewState extends State<SearchPageView> {
             )
           ],
         ),
+      ),
+    );
+  }
+  void navigateToSpecialization(AppointmentInfo info) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            SpecializationView(info: info),
       ),
     );
   }

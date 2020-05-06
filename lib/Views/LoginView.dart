@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'file:///Volumes/DeepMind/Project/HealthProject/MobileApp/patient_app/lib/Services/LoginService.dart';
-import 'file:///Volumes/DeepMind/Project/HealthProject/MobileApp/patient_app/lib/Views/HospitalListView.dart';
+import 'package:patientapp/Services/LoginService.dart';
+import 'package:patientapp/Views/HospitalListView.dart';
+import 'package:patientapp/Model/AppointmentInfo.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -90,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
     var service = LoginService(phone: phone,password: password, url: '127.0.0.1:5000');
     var userData =await service.loginRequest();
     try {
-      this.navigateToHospitalList(userData.id, userData.name);
+      this.navigateToHospitalList(AppointmentInfo(userData.id, userData.name, null));
     }
     catch(e){
       print(e);
@@ -101,11 +102,11 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-  void navigateToHospitalList(int id, String name){
+  void navigateToHospitalList(AppointmentInfo info){
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HospitalListView(userID: id, name: name),
+        builder: (context) => HospitalListView(info:info),
       ),
     );
   }

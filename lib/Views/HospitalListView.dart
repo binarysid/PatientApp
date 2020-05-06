@@ -3,23 +3,21 @@ import 'package:flutter/services.dart';
 import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Views/SearchByView.dart';
+import 'package:patientapp/Model/AppointmentInfo.dart';
 
 class HospitalListView extends StatefulWidget {
-  int userID;
-  String name;
-
+  AppointmentInfo info;
   // In the constructor, require a Todo.
-  HospitalListView({Key key, @required this.userID, @required this.name}) : super(key: key);
+  HospitalListView({Key key, this.info}) : super(key: key);
 
   @override
-  _HospitalListViewState createState() => _HospitalListViewState(userID: this.userID, userName: this.name);
+  _HospitalListViewState createState() => _HospitalListViewState(info: this.info);
 }
 
 class _HospitalListViewState extends State<HospitalListView> {
-  int userID;
-  String userName;
+  AppointmentInfo info;
   List<HospitalListData> hospitals;
-  _HospitalListViewState({Key key, @required this.userID, @required this.userName});
+  _HospitalListViewState({Key key, this.info});
   @override
   void initState() {
     // TODO: implement initState
@@ -34,7 +32,7 @@ class _HospitalListViewState extends State<HospitalListView> {
           builder: (context,snapshot){
             if (snapshot.hasData){
               this.hospitals = snapshot.data;
-              return _jobsListView(this.hospitals);
+              return _hospitalListView(this.hospitals);
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
@@ -44,7 +42,7 @@ class _HospitalListViewState extends State<HospitalListView> {
       )
     );
   }
-  ListView _jobsListView(List<HospitalListData> data) {
+  ListView _hospitalListView(List<HospitalListData> data) {
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) {
@@ -63,16 +61,16 @@ class _HospitalListViewState extends State<HospitalListView> {
       color: Colors.blue[500],
     ),
     onTap: (){
-        this.navigateToSearch(this.userID, this.userName, data.id);
+        this.info.hospitalID = data.id;
+        this.navigateToSearch(this.info);
     },
   );
-  void navigateToSearch(int userID, String userName, int hospitalID) {
+  void navigateToSearch(AppointmentInfo info) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            SearchPageView(
-                userID: userID, userName: userName, hospitalID: hospitalID),
+            SearchPageView(info: info),
       ),
     );
   }
