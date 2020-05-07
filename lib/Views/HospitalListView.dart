@@ -19,11 +19,6 @@ class _HospitalListViewState extends State<HospitalListView> {
   List<HospitalListData> hospitals;
   _HospitalListViewState({Key key, this.info});
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body:Container(
