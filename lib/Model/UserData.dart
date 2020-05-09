@@ -6,8 +6,9 @@ class UserData {
   int code;
   int id;
   String name;
+  String phone;
 
-  UserData(this.code, this.id, this.name);
+  UserData(this.code, this.id, this.name, this.phone);
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 

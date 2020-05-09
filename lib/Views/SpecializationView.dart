@@ -5,6 +5,7 @@ import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Model/SpecializationListData.dart';
+import 'DoctorListView.dart';
 
 class SpecializationView extends StatefulWidget {
   AppointmentInfo info;
@@ -24,7 +25,7 @@ class _SpecializationViewState extends State<SpecializationView> {
     return Scaffold(
         body:Container(
           child: FutureBuilder(
-            future: this.getSpecializationList(this.info.hospitalID),
+            future: this.getSpecializationList(this.info.hospitalData.id),
             builder: (context,snapshot){
               if (snapshot.hasData){
                 this.specializations = snapshot.data;
@@ -56,10 +57,19 @@ class _SpecializationViewState extends State<SpecializationView> {
       color: Colors.blue[500],
     ),
     onTap: (){
-      this.info.hospitalID = data.id;
+      this.info.specializationData = data;
+      this.navigateToDoctorList(this.info);
     },
   );
-
+  void navigateToDoctorList(AppointmentInfo info) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            DoctorListView(info: info),
+      ),
+    );
+  }
   Future<List<SpecializationListData>> getSpecializationList(hospitalID) async{
     var service = HospitalService();
     var specData =await service.getSpecializationListBy(hospitalID);
