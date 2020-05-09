@@ -56,7 +56,7 @@ class _HospitalListViewState extends State<HospitalListView> {
       color: Colors.blue[500],
     ),
     onTap: (){
-        this.info.hospitalID = data.id;
+        this.info.hospitalData = data;
         this.navigateToSearch(this.info);
     },
   );
