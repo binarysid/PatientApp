@@ -19,11 +19,6 @@ class _HospitalListViewState extends State<HospitalListView> {
   List<HospitalListData> hospitals;
   _HospitalListViewState({Key key, this.info});
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body:Container(
@@ -61,7 +56,7 @@ class _HospitalListViewState extends State<HospitalListView> {
       color: Colors.blue[500],
     ),
     onTap: (){
-        this.info.hospitalID = data.id;
+        this.info.hospitalData = data;
         this.navigateToSearch(this.info);
     },
   );
