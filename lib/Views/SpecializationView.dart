@@ -25,7 +25,7 @@ class _SpecializationViewState extends State<SpecializationView> {
     return Scaffold(
         body:Container(
           child: FutureBuilder(
-            future: this.getSpecializationList(this.info.hospitalID),
+            future: this.getSpecializationList(this.info.hospitalData.id),
             builder: (context,snapshot){
               if (snapshot.hasData){
                 this.specializations = snapshot.data;
@@ -57,8 +57,7 @@ class _SpecializationViewState extends State<SpecializationView> {
       color: Colors.blue[500],
     ),
     onTap: (){
-      this.info.specializationID = data.id;
-      this.info.specialization = data.name;
+      this.info.specializationData = data;
       this.navigateToDoctorList(this.info);
     },
   );

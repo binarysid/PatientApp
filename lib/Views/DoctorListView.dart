@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/DoctorListData.dart';
 import 'package:patientapp/Services/DoctorService.dart';
+import 'DoctorProfileView.dart';
 
 class DoctorListView extends StatefulWidget {
   AppointmentInfo info;
@@ -19,7 +20,7 @@ class _DoctorListViewState extends State<DoctorListView> {
     return Scaffold(
         body:Container(
           child: FutureBuilder(
-            future: this.getDoctorlListBy(this.info.hospitalID, this.info.specializationID, this.info.specialization),
+            future: this.getDoctorlListBy(this.info.hospitalData.id, this.info.specializationData.id, this.info.specializationData.name),
             builder: (context,snapshot){
               if (snapshot.hasData){
                 this.doctors = snapshot.data;
@@ -52,10 +53,18 @@ class _DoctorListViewState extends State<DoctorListView> {
       color: Colors.blue[500],
     ),
     onTap: (){
-      this.info.doctorID = data.id;
+      this.info.doctorData = data;
+      navigateToDoctorProfile(this.info);
     },
   );
-
+  void navigateToDoctorProfile(AppointmentInfo info){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DoctorProfileView(info:info),
+      ),
+    );
+  }
   Future<List<DoctorListData>> getDoctorlListBy(int hospitalID, int specializationID, String specialization) async{
     var service = DoctorService();
     var doctorData =await service.getDoctorListBy(hospitalID, specializationID, specialization);
