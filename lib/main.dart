@@ -1,3 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Views/BaseView.dart';
-void main() => runApp(BaseView());
+import 'Views/VideoConsult.dart';
+void main() => runApp(MaterialApp(
+  home: VideoConsult(),
+  ));
