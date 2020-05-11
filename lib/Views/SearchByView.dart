@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
-import 'SpecializationView.dart';
+import 'SpecializationListView.dart';
 
 class SearchPageView extends StatefulWidget {
   AppointmentInfo info;
@@ -61,7 +61,7 @@ class _SearchPageViewState extends State<SearchPageView> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            SpecializationView(info: info),
+            SpecializationListView(info: info),
       ),
     );
   }

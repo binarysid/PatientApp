@@ -6,23 +6,27 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Model/SpecializationListData.dart';
 import 'DoctorListView.dart';
+import 'package:patientapp/Helper/AppColor.dart';
+import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:patientapp/Helper/BottomBar.dart';
 
-class SpecializationView extends StatefulWidget {
+class SpecializationListView extends StatefulWidget {
   AppointmentInfo info;
-  SpecializationView({Key key, this.info}) : super(key: key);
+  SpecializationListView({Key key, this.info}) : super(key: key);
 
   @override
-  _SpecializationViewState createState() => _SpecializationViewState(info:this.info);
+  _SpecializationListViewState createState() => _SpecializationListViewState(info:this.info);
 }
 
-class _SpecializationViewState extends State<SpecializationView> {
+class _SpecializationListViewState extends State<SpecializationListView> {
   AppointmentInfo info;
   List<SpecializationListData> specializations;
-  _SpecializationViewState({Key key, this.info});
+  _SpecializationListViewState({Key key, this.info});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColor.appBG,
         body:Container(
           child: FutureBuilder(
             future: this.getSpecializationList(this.info.hospitalData.id),
@@ -36,30 +40,47 @@ class _SpecializationViewState extends State<SpecializationView> {
               return CircularProgressIndicator();
             },
           ),
-        )
+        ),
+        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
+
     );
   }
   ListView _specListView(List<SpecializationListData> data) {
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) {
-          return _tile(data[index], Icons.work);
+          return this.makeCard(data[index]);
         });
   }
-  ListTile _tile(SpecializationListData data, IconData icon) => ListTile(
-    title: Text(data.name,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 20,
-        )),
-    leading: Icon(
-      icon,
-      color: Colors.blue[500],
+  ListTile makeListTile(SpecializationListData data) => ListTile(
+    contentPadding:
+    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+    leading: Container(
+      padding: EdgeInsets.only(right: 12.0),
+      decoration: new BoxDecoration(
+          border: new Border(
+              right: new BorderSide(width: 1.0, color: Colors.white24))),
+      child: Icon(Icons.autorenew, color: Colors.white),
     ),
-    onTap: (){
+    title: Text(
+      data.name,
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
+    trailing:
+    Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+    onTap: () {
       this.info.specializationData = data;
       this.navigateToDoctorList(this.info);
     },
+  );
+
+  Card makeCard(SpecializationListData data) => Card(
+    elevation: 8.0,
+    margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+    child: Container(
+      decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+      child: makeListTile(data),
+    ),
   );
   void navigateToDoctorList(AppointmentInfo info) {
     Navigator.push(
