@@ -26,8 +26,9 @@ class _SpecializationListViewState extends State<SpecializationListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.appBG,
-        body:Container(
+      backgroundColor: AppColor.appBG,
+      appBar: BaseAppBar(title:'Doctor',backgroundColor:AppColor.appBG,appBar:AppBar()),
+      body:Container(
           child: FutureBuilder(
             future: this.getSpecializationList(this.info.hospitalData.id),
             builder: (context,snapshot){
@@ -41,7 +42,7 @@ class _SpecializationListViewState extends State<SpecializationListView> {
             },
           ),
         ),
-        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
+      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
 
     );
   }
