@@ -6,7 +6,7 @@ part 'DoctorScheduleData.g.dart';
 class DoctorScheduleData {
   int code;
   String message;
-  @JsonKey(name: 'dates')
+  @JsonKey(name: 'schedule')
   List<DoctorScheduleListData> data;
   DoctorScheduleData(this.code, this.message,this.data);
 

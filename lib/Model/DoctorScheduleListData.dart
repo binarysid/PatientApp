@@ -4,10 +4,10 @@ part 'DoctorScheduleListData.g.dart';
 @JsonSerializable()
 class DoctorScheduleListData {
   String date;
-  int id;
-  int isAvailable;
+  String day;
 
-  DoctorScheduleListData(this.date, this.id,this.isAvailable);
+
+  DoctorScheduleListData(this.date, this.day);
   factory DoctorScheduleListData.fromJson(Map<String, dynamic> json) => _$DoctorScheduleListDataFromJson(json);
   Map<String, dynamic> toJson() => _$DoctorScheduleListDataToJson(this);
 }

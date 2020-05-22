@@ -60,10 +60,12 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
       child: Icon(Icons.autorenew, color: Colors.white),
     ),
     title: Text(
-      data.date,
+      data.day,
       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     ),
-
+    subtitle: Text(data.date,
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
     trailing:
     Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
     onTap: () {
