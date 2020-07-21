@@ -80,7 +80,7 @@ class _LoginViewState extends State<LoginView> {
                         this.userLoginRequest(this.phone, this.pass);
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
-                        _displaySnackBar(context);
+//                        _displaySnackBar(context);
                       }
                     },
                     child: Text('Submit'),
@@ -100,11 +100,13 @@ class _LoginViewState extends State<LoginView> {
   void userLoginRequest(String phone, String password) async{
     var service = LoginService(phone: phone,password: password, url: '127.0.0.1:5000');
     var userData =await service.loginRequest();
-    try {
-      this.navigateToHospitalList(AppointmentInfo(userData));
-    }
-    catch(e){
-      print(e);
+    if (userData != null && userData.id != null) {
+      try {
+        this.navigateToHospitalList(AppointmentInfo(userData));
+      }
+      catch (e) {
+        print(e);
+      }
     }
     Widget loadingView() => Center(
       child: CircularProgressIndicator(
