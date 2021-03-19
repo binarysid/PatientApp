@@ -9,7 +9,8 @@ class HospitalService{
 
   Future<HospitalData> getHospitalList() async{
     try {
-      Response response = await post(RestURL.hospitalList, headers: RestURL.commonHeader);
+      var url = Uri.parse(RestURL.hospitalList);
+      Response response = await post(url, headers: RestURL.commonHeader);
       Map data = jsonDecode(response.body);
       return HospitalData.fromJson(data);
     }
@@ -21,7 +22,8 @@ class HospitalService{
     try {
       Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}'};
 //      String body = json.encode(jsonMap);
-      Response response = await post(RestURL.specializationList,body:jsonMap);
+      var url = Uri.parse(RestURL.specializationList);
+      Response response = await post(url,body:jsonMap);
       Map data = jsonDecode(response.body);
       return SpecializationData.fromJson(data);
     }

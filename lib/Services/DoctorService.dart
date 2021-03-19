@@ -17,7 +17,8 @@ class DoctorService{
     try {
       Map<String, dynamic> jsonMap = {'hospital_id':hospitalID, 'specialization_id':specializationID,'specialization':specialization};
       String body = json.encode(jsonMap);
-      Response response = await post(RestURL.doctorList, headers: RestURL.commonHeader, body:body);
+      var url = Uri.parse(RestURL.doctorList);
+      Response response = await post(url, headers: RestURL.commonHeader, body:body);
       Map data = jsonDecode(response.body);
       return DoctorData.fromJson(data);
     }
@@ -29,7 +30,8 @@ class DoctorService{
     try {
       Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
 //      String body = json.encode(jsonMap);
-      Response response = await post(RestURL.doctorProfile, body:jsonMap);
+      var url = Uri.parse(RestURL.doctorProfile);
+      Response response = await post(url, body:jsonMap);
       Map data = jsonDecode(response.body);
       return DoctorProfileModel.fromJson(data);
     }
@@ -41,7 +43,8 @@ class DoctorService{
     try {
       Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
 //      String body = json.encode(jsonMap);
-      Response response = await post(RestURL.doctorSchedules, body:jsonMap);
+      var url = Uri.parse(RestURL.doctorSchedules);
+      Response response = await post(url, body:jsonMap);
       Map data = jsonDecode(response.body);
       return DoctorScheduleData.fromJson(data);
     }
@@ -53,7 +56,8 @@ class DoctorService{
     try {
       Map<String, dynamic> jsonMap = {'hospital_id':'${info.hospitalData.id}', 'doctor_id':'${info.doctorData.id}','visit_time':info.doctorProfileData.visitStartTime,'visit_date':info.scheduleData.date,'patient_name':info.userData.name,'patient_phone':info.userData.phone,'patient_id':'${info.userData.id}'};
       String body = json.encode(jsonMap);
-      Response response = await post(RestURL.doctorAppointment, body:jsonMap);
+      var url = Uri.parse(RestURL.doctorAppointment);
+      Response response = await post(url, body:jsonMap);
       Map data = jsonDecode(response.body);
       return DoctorAppointmentData.fromJson(data);
     }

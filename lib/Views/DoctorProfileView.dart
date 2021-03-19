@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/DoctorProfileData.dart';
 import 'package:patientapp/Services/DoctorService.dart';

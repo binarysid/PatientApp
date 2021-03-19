@@ -101,6 +101,7 @@ class _LoginViewState extends State<LoginView> {
     var service = LoginService(phone: phone,password: password, url: '127.0.0.1:5000');
     var userData =await service.loginRequest();
     if (userData != null && userData.id != null) {
+      userData.phone = phone;
       try {
         this.navigateToHospitalList(AppointmentInfo(userData));
       }

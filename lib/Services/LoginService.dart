@@ -11,7 +11,8 @@ class LoginService{
   Future<UserData> loginRequest() async{
     try {
       Map<String, dynamic> jsonMap = {'phone': phone, 'password': password};
-      Response response = await post(RestURL.login, body: jsonMap);
+      var url = Uri.parse(RestURL.login);
+      Response response = await post(url, body: jsonMap);
       Map data = jsonDecode(response.body);
       return UserData.fromJson(data);
     }
