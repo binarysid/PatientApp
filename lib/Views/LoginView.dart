@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:patientapp/Services/LoginService.dart';
 import 'package:patientapp/Views/HospitalListView.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
+import 'package:patientapp/Helper/AppColor.dart';
+import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:patientapp/Helper/BottomBar.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -18,11 +21,9 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Colors.lightGreen,
-          title: Text('Login'),
-        ),
+      key: _scaffoldKey,
+      backgroundColor: AppColor.appBG,
+      appBar: BaseAppBar(title:'My Health',backgroundColor:AppColor.appBG,appBar:AppBar()),
       body: Form(
           key: _formKey,
           child: Padding(
@@ -30,13 +31,18 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
                 children: <Widget>[
                   TextFormField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                     initialValue: '+8801917079684',
                     keyboardType: TextInputType.number,
 //                    inputFormatters: <TextInputFormatter>[
 //                      WhitelistingTextInputFormatter.digitsOnly
 //                    ],
                     decoration: InputDecoration(
-                      hintText: 'phone'
+                      hintText: 'phone',
+
+
                     ),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -49,6 +55,9 @@ class _LoginViewState extends State<LoginView> {
                     },
                   ),
                   TextFormField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                     initialValue: '01917079684',
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -71,7 +80,7 @@ class _LoginViewState extends State<LoginView> {
                         this.userLoginRequest(this.phone, this.pass);
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
-                        _displaySnackBar(context);
+//                        _displaySnackBar(context);
                       }
                     },
                     child: Text('Submit'),
@@ -81,6 +90,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           )
       ),
+      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   _displaySnackBar(BuildContext context) {
@@ -90,11 +100,14 @@ class _LoginViewState extends State<LoginView> {
   void userLoginRequest(String phone, String password) async{
     var service = LoginService(phone: phone,password: password, url: '127.0.0.1:5000');
     var userData =await service.loginRequest();
-    try {
-      this.navigateToHospitalList(AppointmentInfo(userData));
-    }
-    catch(e){
-      print(e);
+    if (userData != null && userData.id != null) {
+      userData.phone = phone;
+      try {
+        this.navigateToHospitalList(AppointmentInfo(userData));
+      }
+      catch (e) {
+        print(e);
+      }
     }
     Widget loadingView() => Center(
       child: CircularProgressIndicator(

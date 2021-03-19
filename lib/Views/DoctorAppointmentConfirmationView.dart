@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
+import 'package:patientapp/Helper/AppColor.dart';
+import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorAppointmentConfirmationView extends StatefulWidget {
   AppointmentInfo info;
@@ -14,56 +17,35 @@ class _DoctorAppointmentConfirmationViewState extends State<DoctorAppointmentCon
 
   @override
   Widget build(BuildContext context) {
+    var card = Card(
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.account_box),
+            title: Text('Serial No. ${this.info.appointmentData.serialNo}',style: TextStyle(color: Colors.black),
+            ),
+          ),
+          Divider(color: Colors.black),
+          ListTile(
+            leading: Icon(Icons.account_box),
+            title: Text('Date: ${this.info.scheduleData.date}',style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ],
+      ),
+    );
+    final sizedBox = Container(
+      margin: EdgeInsets.all(20),
+      child: SizedBox(
+        child: card,
+      ),
+    );
     return Scaffold(
-      body: _doctorProfileView(this.info),
+        backgroundColor: AppColor.appBG,
+        appBar: BaseAppBar(title:'Appointment Info',backgroundColor:AppColor.appBG,appBar:AppBar()),
+        body: sizedBox,//_doctorProfileView(this.info),
+        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
-  Column _doctorProfileView(AppointmentInfo info) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          this.info.doctorData.name + "\n" + this.info.doctorData.degrees,
-          style: TextStyle(
-            letterSpacing: 2.0,
-            fontSize: 16,
-          ),
-        ),
-        SizedBox(height: 10.0,),
-        Text(
-          'Serial No.: '+ '${this.info.appointmentData.serialNo}',
-          style: TextStyle(
-            letterSpacing: 2.0,
-            fontSize: 24,
-          ),
-        ),
-        SizedBox(height: 10.0,),
-        Text(
-          'Visit Fee: '+ this.info.doctorProfileData.visitFee,
-          style: TextStyle(
-            letterSpacing: 2.0,
-            fontSize: 24,
-          ),
-        ),
-        SizedBox(height: 10.0,),
-        Text(
-          'Visit Time: '+this.info.doctorProfileData.visitStartTime+'-'+this.info.doctorProfileData.visitEndTime,
-          style: TextStyle(
-            letterSpacing: 2.0,
-            fontSize: 30,
-          ),
-        ),
-        SizedBox(height: 10.0,),
-        Text(
-          'Room No. '+ this.info.doctorProfileData.roomNo,
-          style: TextStyle(
-            letterSpacing: 2.0,
-            fontSize: 30,
-          ),
-        ),
 
-      ],
-    );
-
-  }
 }

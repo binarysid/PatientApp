@@ -3,6 +3,9 @@ import 'package:patientapp/Model/DoctorProfileData.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:flutter/material.dart';
 import 'DoctorScheduleListView.dart';
+import 'package:patientapp/Helper/AppColor.dart';
+import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorProfileView extends StatefulWidget {
   AppointmentInfo info;
@@ -15,16 +18,12 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
   AppointmentInfo info;
   DoctorProfileData profile;
   _DoctorProfileViewState({Key key, this.info});
-
+  final textFontSize = 17.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Center(child: Text('ninja header start')),
-        backgroundColor: Colors.grey[600],
-        elevation: 0.0,
-      ),
+      backgroundColor: AppColor.appBG,
+      appBar: BaseAppBar(title:'Doctor',backgroundColor:AppColor.appBG,appBar:AppBar()),
       body: Container(
         child: FutureBuilder(
           future: this.getDoctorProfileBy(this.info.hospitalData.id, this.info.doctorData.id),
@@ -38,70 +37,88 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
             return CircularProgressIndicator();
           },
         ),
-      )
+      ),
+      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
+
     );
   }
-  Column _doctorProfileView(DoctorProfileData data) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-            child: CircleAvatar(
-              backgroundImage: AssetImage('assets/linkon.jpg'),
+  TextStyle getTextStyle(){
+    return TextStyle(
+      color: Colors.white,
+      letterSpacing: 2.0,
+      fontSize: this.textFontSize,
+    );
+  }
+  Padding _doctorProfileView(DoctorProfileData data) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child:ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: CircleAvatar(
+                      radius: 60.0,
+                      backgroundImage: AssetImage('assets/linkon.jpg')
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  this.info.doctorData.name + "\n" + this.info.doctorData.degrees,
+                  style: this.getTextStyle(),
+                ),
+                SizedBox(height: 16),
+                Center(
+                  child: ButtonTheme(
+                    minWidth: double.infinity,
+                    height: 50.0,
+                    child: FlatButton(
+                        color: Colors.white,
+                        onPressed: () {
+                          this.info.doctorProfileData = data;
+                          this.navigateToDoctorSchedule(this.info);
+                        },
+                        child: Text(
+                          "Book Now",
+                          style: TextStyle(fontSize: 20.0),
+                        )
+                    ),
+                  ),
+                ),
+                Divider(
+                  height: 50,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 10.0,),
+                Text(
+                  'Specialization: '+ this.info.specializationData.name,
+                  style: this.getTextStyle(),
+                ),
+                SizedBox(height: 16.0,),
+                Text(
+                  'Chamber: '+ this.info.hospitalData.name,
+                  style: this.getTextStyle(),
+                ),
+                SizedBox(height: 16.0,),
+                Text(
+                  'Visit Fee: '+ data.visitFee,
+                  style: this.getTextStyle(),
+                ),
+                SizedBox(height: 16.0,),
+                Text(
+                  'Visit Time: '+data.visitStartTime+'-'+data.visitEndTime,
+                  style: this.getTextStyle(),
+                ),
+                SizedBox(height: 16.0,),
+                Text(
+                  'Room No. '+ data.roomNo,
+                  style: this.getTextStyle(),
+                ),
+              ],
             ),
-          ),
-          Divider(
-            height: 100,
-            color: Colors.white,
-          ),
-          Text(
-            this.info.doctorData.name + "\n" + this.info.doctorData.degrees,
-            style: TextStyle(
-              color: Colors.lightGreen,
-              letterSpacing: 2.0,
-              fontSize: 16,
-            ),
-          ),
-          SizedBox(height: 10.0,),
-          Text(
-            'Visit Fee: '+ data.visitFee,
-            style: TextStyle(
-              color: Colors.yellowAccent,
-              letterSpacing: 2.0,
-              fontSize: 24,
-            ),
-          ),
-          SizedBox(height: 10.0,),
-          Text(
-            'Visit Time: '+data.visitStartTime+'-'+data.visitEndTime,
-            style: TextStyle(
-              color: Colors.yellow,
-              letterSpacing: 2.0,
-              fontSize: 30,
-            ),
-          ),
-          SizedBox(height: 10.0,),
-          Text(
-            'Room No. '+ data.roomNo,
-            style: TextStyle(
-              color: Colors.yellow,
-              letterSpacing: 2.0,
-              fontSize: 30,
-            ),
-          ),
-          FlatButton(color: Colors.red,
-            onPressed: () {
-              this.info.doctorProfileData = data;
-              this.navigateToDoctorSchedule(this.info);
-            },
-            child: Text(
-              "Make Appointment",
-              style: TextStyle(fontSize: 20.0),
-            ),
-          ),
-
-        ],
-      );
+          ]),
+    );
 
   }
   void navigateToDoctorSchedule(AppointmentInfo info){

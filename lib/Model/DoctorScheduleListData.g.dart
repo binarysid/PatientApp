@@ -10,8 +10,7 @@ DoctorScheduleListData _$DoctorScheduleListDataFromJson(
     Map<String, dynamic> json) {
   return DoctorScheduleListData(
     json['date'] as String,
-    json['id'] as int,
-    json['isAvailable'] as int,
+    json['day'] as String,
   );
 }
 
@@ -19,6 +18,5 @@ Map<String, dynamic> _$DoctorScheduleListDataToJson(
         DoctorScheduleListData instance) =>
     <String, dynamic>{
       'date': instance.date,
-      'id': instance.id,
-      'isAvailable': instance.isAvailable,
+      'day': instance.day,
     };

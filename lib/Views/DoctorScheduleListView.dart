@@ -3,6 +3,9 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorScheduleListData.dart';
 import 'DoctorAppointmentView.dart';
+import 'package:patientapp/Helper/AppColor.dart';
+import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorScheduleListView extends StatefulWidget {
   AppointmentInfo info;
@@ -19,6 +22,8 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColor.appBG,
+        appBar: BaseAppBar(title:'My Health',backgroundColor:AppColor.appBG,appBar:AppBar()),
         body:Container(
           child: FutureBuilder(
             future: this.getDoctorlScheduleBy(this.info.doctorData.id, this.info.hospitalData.id),
@@ -32,31 +37,52 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
               return CircularProgressIndicator();
             },
           ),
-        )
+        ),
+        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   ListView _doctorListView(List<DoctorScheduleListData> data) {
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) {
-          return _tile(data[index], Icons.work);
+          return makeCard(data[index]);
         });
   }
-  ListTile _tile(DoctorScheduleListData data, IconData icon) => ListTile(
-    title: Text(data.date,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 20,
-        )),
-    leading: Icon(
-      icon,
-      color: Colors.blue[500],
+
+  ListTile makeListTile(DoctorScheduleListData data) => ListTile(
+    contentPadding:
+    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+    leading: Container(
+      padding: EdgeInsets.only(right: 12.0),
+      decoration: new BoxDecoration(
+          border: new Border(
+              right: new BorderSide(width: 1.0, color: Colors.white24))),
+      child: Icon(Icons.autorenew, color: Colors.white),
     ),
-    onTap: (){
+    title: Text(
+      data.day,
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
+    subtitle: Text(data.date,
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    ),
+    trailing:
+    Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+    onTap: () {
       this.info.scheduleData = data;
       navigateToDoctorAppointment(this.info);
     },
   );
+
+  Card makeCard(DoctorScheduleListData data) => Card(
+    elevation: 8.0,
+    margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+    child: Container(
+      decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+      child: makeListTile(data),
+    ),
+  );
+
   void navigateToDoctorAppointment(AppointmentInfo info){
     Navigator.push(
       context,

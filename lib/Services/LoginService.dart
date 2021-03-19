@@ -1,7 +1,7 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:patientapp/Model/UserData.dart';
-
+import 'package:patientapp/Helper/RestURL.dart';
 class LoginService{
   String phone;
   String password;
@@ -10,11 +10,9 @@ class LoginService{
 
   Future<UserData> loginRequest() async{
     try {
-
-      Map<String, String> headers = {"Content-type": "application/json"};
-      Map<String, dynamic> jsonMap = {"phone": phone, "password": password};
-      String body = json.encode(jsonMap);
-      Response response = await post("http://10.0.2.2:5000/login", headers: headers, body: body);
+      Map<String, dynamic> jsonMap = {'phone': phone, 'password': password};
+      var url = Uri.parse(RestURL.login);
+      Response response = await post(url, body: jsonMap);
       Map data = jsonDecode(response.body);
       return UserData.fromJson(data);
     }
