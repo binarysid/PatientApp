@@ -26,7 +26,7 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
         appBar: BaseAppBar(title:'My Health',backgroundColor:AppColor.appBG,appBar:AppBar()),
         body:Container(
           child: FutureBuilder(
-            future: this.getDoctorlScheduleBy(this.info.doctorData.id, this.info.hospitalData.id),
+            future: this.getDoctorlScheduleBy(this.info.hospitalData.id, this.info.doctorData.id),
             builder: (context,snapshot){
               if (snapshot.hasData){
                 this.doctors = snapshot.data;

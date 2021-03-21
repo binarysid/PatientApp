@@ -34,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                    initialValue: '+8801917079684',
+                    initialValue: '7079684',
                     keyboardType: TextInputType.number,
 //                    inputFormatters: <TextInputFormatter>[
 //                      WhitelistingTextInputFormatter.digitsOnly
@@ -58,7 +58,7 @@ class _LoginViewState extends State<LoginView> {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                    initialValue: '01917079684',
+                    initialValue: '7079684',
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'password'
