@@ -6,7 +6,7 @@ import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorAppointmentConfirmationView extends StatefulWidget {
   AppointmentInfo info;
-  DoctorAppointmentConfirmationView({Key key, this.info}) : super(key: key);
+  DoctorAppointmentConfirmationView({ Key key, this.info}) : super(key: key);
   @override
   _DoctorAppointmentConfirmationViewState createState() => _DoctorAppointmentConfirmationViewState(info: this.info);
 }
