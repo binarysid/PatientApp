@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:patientapp/Helper/AppDrawer.dart';
 import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Views/SearchByView.dart';
@@ -26,6 +27,7 @@ class _HospitalListViewState extends State<HospitalListView> {
     return Scaffold(
         backgroundColor: AppColor.appBG,
         appBar: BaseAppBar(title:'My Health',backgroundColor:AppColor.appBG,appBar:AppBar()),
+        drawer: AppDrawer(context).getDrawer(),
         body:Container(
           child: FutureBuilder(
             future: this.getHospitalList(),
