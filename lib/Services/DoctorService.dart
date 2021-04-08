@@ -15,10 +15,10 @@ class DoctorService{
 
   Future<DoctorData> getDoctorListBy(int hospitalID,int specializationID, String specialization) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':hospitalID, 'specialization_id':specializationID,'specialization':specialization};
+      Map<String, dynamic> jsonMap = {'hospital_id':'$hospitalID', 'specialization_id':'$specializationID','specialization':'$specialization'};
       String body = json.encode(jsonMap);
       var url = Uri.parse(RestURL.doctorList);
-      Response response = await post(url, headers: RestURL.commonHeader, body:body);
+      Response response = await post(url, body:jsonMap);
       Map data = jsonDecode(response.body);
       return DoctorData.fromJson(data);
     }

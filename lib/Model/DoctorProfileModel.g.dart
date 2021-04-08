@@ -10,7 +10,9 @@ DoctorProfileModel _$DoctorProfileModelFromJson(Map<String, dynamic> json) {
   return DoctorProfileModel(
     json['code'] as int,
     json['message'] as String,
-    DoctorProfileData.fromJson(json['data'] as Map<String, dynamic>),
+    json['data'] == null
+        ? null
+        : DoctorProfileData.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 

@@ -16,8 +16,10 @@ class DoctorProfileData {
   String visitStartDay;
   @JsonKey(name: 'visit_start_time')
   String visitStartTime;
+  @JsonKey(name: 'days')
+  String days;
 
-  DoctorProfileData(this.phone, this.roomNo,this.visitEndDay,this.visitEndTime,this.visitFee,this.visitStartDay,this.visitStartTime);
+  DoctorProfileData(this.phone, this.roomNo,this.visitEndDay,this.visitEndTime,this.visitFee,this.visitStartDay,this.visitStartTime,this.days);
   factory DoctorProfileData.fromJson(Map<String, dynamic> json) => _$DoctorProfileDataFromJson(json);
   Map<String, dynamic> toJson() => _$DoctorProfileDataToJson(this);
 }

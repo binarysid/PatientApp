@@ -107,7 +107,7 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
                 ),
                 SizedBox(height: 16.0,),
                 Text(
-                  'Visit Time: '+data.visitStartTime+'-'+data.visitEndTime,
+                  'Visiting days: '+data.days,
                   style: this.getTextStyle(),
                 ),
                 SizedBox(height: 16.0,),
