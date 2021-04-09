@@ -29,14 +29,13 @@ class DoctorService{
   Future<DoctorProfileModel> getDoctorProfileBy(int hospitalID,int doctorID) async{
     try {
       Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
-//      String body = json.encode(jsonMap);
       var url = Uri.parse(RestURL.doctorProfile);
       Response response = await post(url, body:jsonMap);
       Map data = jsonDecode(response.body);
       return DoctorProfileModel.fromJson(data);
     }
     catch(e){
-      print(e);
+      return null;
     }
   }
   Future<DoctorScheduleData> getDoctorSchedule(int hospitalID,int doctorID) async{

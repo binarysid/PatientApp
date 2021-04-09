@@ -119,7 +119,6 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
             ),
           ]),
     );
-
   }
   void navigateToDoctorSchedule(AppointmentInfo info){
     Navigator.push(
@@ -135,5 +134,6 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
     if (profile.code == 200){
       return profile.data;
     }
+    return null;
   }
 }
