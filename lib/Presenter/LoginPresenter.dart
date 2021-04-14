@@ -9,7 +9,7 @@ class LoginPresenter{
     var userData = await service.loginRequest(phone, password);
     if (userData != null) {
       userData.phone = phone;
-      Cache.addLoginInfoToCache(userData.id, userData.name);
+      Cache.addLoginInfoToCache(userData.id, userData.name,userData.phone);
       return userData;
     }
     return null;

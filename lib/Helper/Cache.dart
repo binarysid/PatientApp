@@ -6,16 +6,19 @@ class Cache{
 
   static const _userID = 'user_id';
   static const _userName = 'user_name';
+  static const _userPhone = 'user_phone';
 
-  static Future<void> addLoginInfoToCache(int id, String name) async {
+  static Future<void> addLoginInfoToCache(int id, String name,String phone) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(_userID, id);
     prefs.setString(_userName, name);
+    prefs.setString(_userPhone, phone);
   }
   static Future<void> removeLoginInfoFromCache() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_userID);
     await prefs.remove(_userName);
+    await prefs.remove(_userPhone);
   }
   static Future<int> getUserInfo() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -29,13 +32,17 @@ class Cache{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_userName);
   }
+  static Future<String> getUserPhone() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_userPhone);
+  }
   static Future<bool> isUserLoggedIn() async{
     return await getUserInfo()!=null;
   }
   static Future<UserData>getUserData() async{
     var getID = await getUserID();
     var getName = await getUserName();
-    if (getID == null) return null;
-    return UserData(NetworkCode.success, getID, getName, '');
+    var getphone = await getUserPhone();
+    return UserData(NetworkCode.success, getID, getName, getphone);
   }
 }

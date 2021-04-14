@@ -11,6 +11,7 @@ DoctorAppointmentData _$DoctorAppointmentDataFromJson(
   return DoctorAppointmentData(
     json['code'] as int,
     json['serialNo'] as int,
+    json['message'] as String,
   );
 }
 
@@ -19,4 +20,5 @@ Map<String, dynamic> _$DoctorAppointmentDataToJson(
     <String, dynamic>{
       'code': instance.code,
       'serialNo': instance.serialNo,
+      'message': instance.message,
     };

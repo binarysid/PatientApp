@@ -30,6 +30,7 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
           builder: (context,snapshot){
             if (snapshot.hasData){
               this.profile = snapshot.data;
+              this.info.doctorData.degrees = this.profile.degrees;
               return _doctorProfileView(this.profile);
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");

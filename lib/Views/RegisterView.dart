@@ -68,7 +68,6 @@ extension on _RegisterViewState{
       color: Colors.white,
     ),
     initialValue: '',
-    keyboardType: TextInputType.number,
     decoration: InputDecoration(
       hintText: 'name',
     ),

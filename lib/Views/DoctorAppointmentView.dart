@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:patientapp/Helper/CommonToast.dart';
+import 'package:patientapp/Helper/NetworkCode.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorAppointmentData.dart';
@@ -64,8 +67,13 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
             splashColor: Colors.blueAccent,
             onPressed: () async{
               var appointMentData = await this.makeAppointment(this.info);
-              this.info.appointmentData = appointMentData;
-              this.navigateToAppointmentConfirm(this.info);
+              if(appointMentData.code == NetworkCode.success) {
+                this.info.appointmentData = appointMentData;
+                this.navigateToAppointmentConfirm(this.info);
+              }
+              else{
+                CommonToast.showToastForAsyncRequest(appointMentData.message,duration: Toast.LENGTH_LONG);
+              }
             },
             child: Text(
               "Confirm appointment",
@@ -100,8 +108,6 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
   Future<DoctorAppointmentData> makeAppointment(AppointmentInfo info) async{
     var service = DoctorService();
     var appointmentData =await service.makeAppointment(info);
-    if (appointmentData.code == 200){
-      return appointmentData;
-    }
+    return appointmentData;
   }
 }
