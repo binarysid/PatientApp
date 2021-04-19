@@ -5,8 +5,8 @@ import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Views/SearchByView.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:common_utils/AppColor.dart';
+import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class HospitalListView extends StatefulWidget {

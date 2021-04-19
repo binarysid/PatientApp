@@ -3,8 +3,8 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorScheduleListData.dart';
 import 'DoctorAppointmentView.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:common_utils/AppColor.dart';
+import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorScheduleListView extends StatefulWidget {

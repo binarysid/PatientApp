@@ -6,9 +6,6 @@ import 'package:patientapp/Model/DoctorScheduleData.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/UserData.dart';
 import 'package:patientapp/Model/DoctorAppointmentData.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
-import 'package:patientapp/Helper/BottomBar.dart';
 import 'package:patientapp/Helper/RestURL.dart';
 
 class DoctorService{

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:patientapp/Helper/CommonToast.dart';
-import 'package:patientapp/Helper/NetworkCode.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
+import 'package:common_utils/NetworkCode.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorAppointmentData.dart';
 import 'DoctorAppointmentConfirmationView.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorAppointmentView extends StatefulWidget {
@@ -72,7 +69,7 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
                 this.navigateToAppointmentConfirm(this.info);
               }
               else{
-                CommonToast.showToastForAsyncRequest(appointMentData.message,duration: Toast.LENGTH_LONG);
+                CommonToast.showToastForAsyncRequest(appointMentData.message,duration: ToastLength.LONG);
               }
             },
             child: Text(

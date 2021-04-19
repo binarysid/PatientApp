@@ -3,8 +3,8 @@ import 'package:patientapp/Model/DoctorProfileData.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:flutter/material.dart';
 import 'DoctorScheduleListView.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:common_utils/AppColor.dart';
+import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorProfileView extends StatefulWidget {

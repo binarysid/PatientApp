@@ -6,8 +6,8 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Model/SpecializationListData.dart';
 import 'DoctorListBySpecializationView.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:common_utils/AppColor.dart';
+import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class SpecializationListView extends StatefulWidget {

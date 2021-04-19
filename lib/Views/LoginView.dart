@@ -1,14 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:patientapp/Helper/NetworkCode.dart';
+import 'package:common_utils/NetworkCode.dart';
 import 'package:patientapp/Presenter/LoginPresenter.dart';
 import 'package:patientapp/Router/LoginViewRouter.dart';
 import 'package:patientapp/Services/AuthService.dart';
 import 'package:patientapp/Views/HospitalListView.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
-import 'package:patientapp/Helper/AppColor.dart';
-import 'package:patientapp/Helper/BaseAppBar.dart';
+import 'package:common_utils/AppColor.dart';
+import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 import 'package:patientapp/Helper/AppDrawer.dart';
 

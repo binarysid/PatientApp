@@ -1,6 +1,7 @@
-import 'package:patientapp/Helper/NetworkCode.dart';
+import 'package:common_utils/NetworkCode.dart';
 import 'package:patientapp/Model/UserData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:common_utils/NetworkCode.dart';
 
 class Cache{
 

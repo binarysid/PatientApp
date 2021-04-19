@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Helper/Cache.dart';
-import 'package:patientapp/Helper/NetworkCode.dart';
+import 'package:common_utils/NetworkCode.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/UserData.dart';
 import 'package:patientapp/Router/BaseViewRouter.dart';
 import 'package:patientapp/Views/SplashScreen.dart';
 import 'LoginView.dart';
-import 'package:patientapp/Helper/AppColor.dart';
+import 'package:common_utils/AppColor.dart';
 
 class BaseView extends StatelessWidget {
   var router = BaseViewRouter();
