@@ -13,9 +13,15 @@ import 'package:patientapp/Helper/RestURL.dart';
 
 class DoctorService{
 
-  Future<DoctorData> getDoctorListBy(int hospitalID,int specializationID, String specialization) async{
+  Future<DoctorData> getDoctorListBy(int hospitalID,{int specializationID, String specialization} ) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':'$hospitalID', 'specialization_id':'$specializationID','specialization':'$specialization'};
+      Map<String, dynamic> jsonMap = {'hospital_id':'$hospitalID'};
+      if(specializationID != null){
+        jsonMap['specialization_id'] = '$specializationID';
+      }
+      else if(specialization != null){
+        jsonMap['specialization'] = '$specialization';
+      }
       String body = json.encode(jsonMap);
       var url = Uri.parse(RestURL.doctorList);
       Response response = await post(url, body:jsonMap);

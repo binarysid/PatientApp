@@ -5,8 +5,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final String title;
   final AppBar appBar;
-
-  const BaseAppBar({Key key, this.title, this.backgroundColor, this.appBar}) : super(key: key);
+  Icon icon = Icon(Icons.search);
+  Function onPressIcon = (){};
+  BaseAppBar({Key key, this.title, this.backgroundColor, this.appBar,this.icon,this.onPressIcon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +17,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(this.title),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.list),
-          onPressed: () {},
+          disabledColor: Colors.white,
+          icon: Icon(Icons.search),
+          onPressed: onPressIcon,
         )
       ],
     );

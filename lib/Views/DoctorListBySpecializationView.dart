@@ -7,17 +7,17 @@ import 'package:patientapp/Helper/AppColor.dart';
 import 'package:patientapp/Helper/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
-class DoctorListView extends StatefulWidget {
+class DoctorListBySpecializationView extends StatefulWidget {
   AppointmentInfo info;
-  DoctorListView({Key key, this.info}) : super(key: key);
+  DoctorListBySpecializationView({Key key, this.info}) : super(key: key);
   @override
-  _DoctorListViewState createState() => _DoctorListViewState(info: this.info);
+  _DoctorListBySpecializationViewState createState() => _DoctorListBySpecializationViewState(info: this.info);
 }
 
-class _DoctorListViewState extends State<DoctorListView> {
+class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializationView> {
   AppointmentInfo info;
   List<DoctorListData> doctors;
-  _DoctorListViewState({Key key, this.info});
+  _DoctorListBySpecializationViewState({Key key, this.info});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +99,7 @@ class _DoctorListViewState extends State<DoctorListView> {
   }
   Future<List<DoctorListData>> getDoctorlListBy(int hospitalID, int specializationID, String specialization) async{
     var service = DoctorService();
-    var doctorData =await service.getDoctorListBy(hospitalID, specializationID, specialization);
+    var doctorData =await service.getDoctorListBy(hospitalID, specializationID: specializationID, specialization: specialization);
     if (doctorData.code == 200){
       return doctorData.list;
     }

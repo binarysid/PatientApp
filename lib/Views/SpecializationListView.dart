@@ -5,7 +5,7 @@ import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Model/SpecializationListData.dart';
-import 'DoctorListView.dart';
+import 'DoctorListBySpecializationView.dart';
 import 'package:patientapp/Helper/AppColor.dart';
 import 'package:patientapp/Helper/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
@@ -88,7 +88,7 @@ class _SpecializationListViewState extends State<SpecializationListView> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            DoctorListView(info: info),
+            DoctorListBySpecializationView(info: info),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
+import 'package:patientapp/Router/SearchByViewRouter.dart';
 import 'SpecializationListView.dart';
 import 'package:patientapp/Helper/AppColor.dart';
 import 'package:patientapp/Helper/BaseAppBar.dart';
@@ -16,6 +17,7 @@ class SearchPageView extends StatefulWidget {
 class _SearchPageViewState extends State<SearchPageView> {
   AppointmentInfo info;
   _SearchPageViewState({Key key, @required this.info});
+  var router =SearchByViewRouter();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +41,7 @@ class _SearchPageViewState extends State<SearchPageView> {
                   padding: EdgeInsets.all(8.0),
                   splashColor: Colors.blueAccent,
                   onPressed: () {
-                    this.navigateToSpecialization(this.info);
+                    this.router.navigateToSpecialization(context,this.info);
                   },
                   child: Text(
                     "Search By Specialization",
@@ -60,7 +62,7 @@ class _SearchPageViewState extends State<SearchPageView> {
                   padding: EdgeInsets.all(8.0),
                   splashColor: Colors.blueAccent,
                   onPressed: () {
-                    /*...*/
+                    this.router.navigateToAllDoctorList(context, info);
                   },
                   child: Text(
                     "Search By Doctor name",
@@ -81,13 +83,5 @@ class _SearchPageViewState extends State<SearchPageView> {
         side: BorderSide(color: Colors.white)
     );
   }
-  void navigateToSpecialization(AppointmentInfo info) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            SpecializationListView(info: info),
-      ),
-    );
-  }
+
 }
