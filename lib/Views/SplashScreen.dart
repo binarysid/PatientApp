@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+
 class SplashScreen extends StatefulWidget {
   final Color backgroundColor;
   final Function onSplashScreenEnd;
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final String splashImage;
   String splashText='';
   _SplashScreenState({Key key, this.onSplashScreenEnd, this.splashDelay,this.splashImage,this.backgroundColor,this.splashText});
+
 
   @override
   void initState() {
@@ -68,4 +70,5 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
 }

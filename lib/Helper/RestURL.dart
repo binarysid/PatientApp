@@ -1,8 +1,8 @@
 class RestURL{
-  // static final baseURL = "http://10.0.2.2:8000/"; // for android localhost
+  // static final baseURL = "http://10.0.2.2:8000/"; // for android(if using emulator) localhost
   // static final baseURL = "http://127.0.0.1:8000/"; // for iOS localhost
   static final baseURL = "http://health.nogorbazar.com/";
-  // static final baseURL = "http://192.168.12.80:8000/"; // local machine ip
+  // static final baseURL = "103.204.244.18:8000/"; // local machine ip
   static final patientBaseURL = baseURL+"patient/api/";
   static final hospitalBaseURL = baseURL+"hospital/api/";
   static final doctorBaseURL = baseURL+"doctor/api/";

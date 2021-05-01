@@ -7,10 +7,12 @@ class LoginPresenter{
   var service = AuthService();
   Future<UserData> userLoginRequest(String phone, String password) async{
     var userData = await service.loginRequest(phone, password);
-    if (userData != null) {
-      userData.phone = phone;
-      Cache.addLoginInfoToCache(userData.id, userData.name,userData.phone);
-      return userData;
+    var user = userData[0];
+    var notificationRegToken = userData[1];
+    if (user != null) {
+      user.phone = phone;
+      Cache.addLoginInfoToCache(user.id, user.name,user.phone,notificationRegToken);
+      return user;
     }
     return null;
   }
