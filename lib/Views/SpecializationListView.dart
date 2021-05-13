@@ -6,8 +6,7 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Model/SpecializationListData.dart';
 import 'DoctorListBySpecializationView.dart';
-import 'package:common_utils/AppColor.dart';
-import 'package:common_utils/BaseAppBar.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class SpecializationListView extends StatefulWidget {
@@ -26,8 +25,7 @@ class _SpecializationListViewState extends State<SpecializationListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.appBG,
-      appBar: BaseAppBar(title:'Doctor',backgroundColor:AppColor.appBG,appBar:AppBar()),
+      appBar: BaseAppBar(title:info.hospitalData.name,appBar:AppBar()),
       body:Container(
           child: FutureBuilder(
             future: this.getSpecializationList(this.info.hospitalData.id),
@@ -61,14 +59,14 @@ class _SpecializationListViewState extends State<SpecializationListView> {
       decoration: new BoxDecoration(
           border: new Border(
               right: new BorderSide(width: 1.0, color: Colors.white24))),
-      child: Icon(Icons.autorenew, color: Colors.white),
+      child: Icon(Icons.widgets, color: UIComponent.list.leadingIconColor),
     ),
     title: Text(
       data.name,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      style: UIComponent.list.titleTextStyle,
     ),
     trailing:
-    Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+    Icon(Icons.keyboard_arrow_right, color: UIComponent.list.trailingIconColor, size: 30.0),
     onTap: () {
       this.info.specializationData = data;
       this.navigateToDoctorList(this.info);
@@ -79,7 +77,7 @@ class _SpecializationListViewState extends State<SpecializationListView> {
     elevation: 8.0,
     margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     child: Container(
-      decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+      decoration: UIComponent.list.boxDecoration,
       child: makeListTile(data),
     ),
   );

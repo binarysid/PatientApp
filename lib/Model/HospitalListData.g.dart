@@ -12,6 +12,10 @@ HospitalListData _$HospitalListDataFromJson(Map<String, dynamic> json) {
     json['name'] as String,
     json['phone'] as String,
     json['email'] as String,
+    json['address'] as String,
+    (json['lat'] as num)?.toDouble(),
+    (json['lng'] as num)?.toDouble(),
+    json['icon'] as String,
   );
 }
 
@@ -21,4 +25,8 @@ Map<String, dynamic> _$HospitalListDataToJson(HospitalListData instance) =>
       'id': instance.id,
       'name': instance.name,
       'phone': instance.phone,
+      'address': instance.address,
+      'lat': instance.lat,
+      'lng': instance.lng,
+      'icon': instance.icon,
     };

@@ -17,6 +17,7 @@ DoctorProfileData _$DoctorProfileDataFromJson(Map<String, dynamic> json) {
     json['visit_start_time'] as String,
     json['days'] as String,
     json['degrees'] as String,
+    json['photo'] as String,
   );
 }
 
@@ -31,4 +32,5 @@ Map<String, dynamic> _$DoctorProfileDataToJson(DoctorProfileData instance) =>
       'visit_start_time': instance.visitStartTime,
       'days': instance.days,
       'degrees': instance.degrees,
+      'photo': instance.photo,
     };

@@ -89,7 +89,7 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
 
     return Scaffold(
       backgroundColor: AppColor.appBG,
-      appBar: BaseAppBar(title:'Appointment Info',backgroundColor:AppColor.appBG,appBar:AppBar()),
+      appBar: BaseAppBar(title:'Appointment Info',appBar:AppBar()),
       body: sizedBox,//_doctorProfileView(this.info),
       bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );

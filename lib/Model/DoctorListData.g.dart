@@ -14,6 +14,7 @@ DoctorListData _$DoctorListDataFromJson(Map<String, dynamic> json) {
     json['degrees'] as String,
     json['address'] as String,
     json['specialization'] as String,
+    json['photo'] as String,
   );
 }
 
@@ -25,4 +26,5 @@ Map<String, dynamic> _$DoctorListDataToJson(DoctorListData instance) =>
       'name': instance.name,
       'phone': instance.phone,
       'specialization': instance.specialization,
+      'photo': instance.photo,
     };

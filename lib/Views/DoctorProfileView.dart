@@ -3,8 +3,7 @@ import 'package:patientapp/Model/DoctorProfileData.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:flutter/material.dart';
 import 'DoctorScheduleListView.dart';
-import 'package:common_utils/AppColor.dart';
-import 'package:common_utils/BaseAppBar.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorProfileView extends StatefulWidget {
@@ -22,8 +21,7 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.appBG,
-      appBar: BaseAppBar(title:'Doctor',backgroundColor:AppColor.appBG,appBar:AppBar()),
+      appBar: BaseAppBar(title:info.doctorData.name,appBar:AppBar()),
       body: Container(
         child: FutureBuilder(
           future: this.getDoctorProfileBy(this.info.hospitalData.id, this.info.doctorData.id),
@@ -60,67 +58,59 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
               children: <Widget>[
                 Center(
                   child: CircleAvatar(
-                      radius: 60.0,
-                      backgroundImage: AssetImage('assets/linkon.jpg')
+                    radius: 60.0,
+                    backgroundColor: Colors.grey,
+                    backgroundImage: data.photo != null ? NetworkImage(data.photo):UIComponent.defaultAvatar,
                   ),
                 ),
                 SizedBox(height: 10),
                 Text(
                   this.info.doctorData.name + "\n" + this.info.doctorData.degrees,
-                  style: this.getTextStyle(),
+                  style: UIComponent.list.titleTextStyle,
                 ),
                 SizedBox(height: 16),
                 Center(
-                  child: ButtonTheme(
-                    minWidth: double.infinity,
-                    height: 50.0,
-                    child: FlatButton(
-                        color: Colors.white,
-                        onPressed: () {
-                          this.info.doctorProfileData = data;
-                          this.navigateToDoctorSchedule(this.info);
-                        },
-                        child: Text(
-                          "Book Now",
-                          style: TextStyle(fontSize: 20.0),
-                        )
-                    ),
-                  ),
+                  child: submitOption(data),
                 ),
                 Divider(
                   height: 50,
-                  color: Colors.white,
+                  color: AppColor.appBG,
                 ),
                 SizedBox(height: 10.0,),
                 Text(
                   'Specialization: '+ this.info.specializationData.name,
-                  style: this.getTextStyle(),
+                  style: UIComponent.list.titleTextStyle,
                 ),
                 SizedBox(height: 16.0,),
                 Text(
                   'Chamber: '+ this.info.hospitalData.name,
-                  style: this.getTextStyle(),
+                  style: UIComponent.list.titleTextStyle,
                 ),
                 SizedBox(height: 16.0,),
                 Text(
                   'Visit Fee: '+ data.visitFee,
-                  style: this.getTextStyle(),
+                  style: UIComponent.list.titleTextStyle,
                 ),
                 SizedBox(height: 16.0,),
                 Text(
                   'Visiting days: '+data.days,
-                  style: this.getTextStyle(),
+                  style: UIComponent.list.titleTextStyle,
                 ),
                 SizedBox(height: 16.0,),
                 Text(
                   'Room No. '+ data.roomNo,
-                  style: this.getTextStyle(),
+                  style: UIComponent.list.titleTextStyle,
                 ),
               ],
             ),
           ]),
     );
   }
+  ActionButton submitOption(DoctorProfileData data)=>ActionButton(onPressed: (){
+    this.info.doctorProfileData = data;
+    this.navigateToDoctorSchedule(this.info);
+  },title: 'Book Now');
+
   void navigateToDoctorSchedule(AppointmentInfo info){
     Navigator.push(
       context,

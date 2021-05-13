@@ -5,9 +5,8 @@ import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Views/SearchByView.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
-import 'package:common_utils/AppColor.dart';
-import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
 
 class HospitalListView extends StatefulWidget {
   AppointmentInfo info;
@@ -22,11 +21,11 @@ class _HospitalListViewState extends State<HospitalListView> {
   AppointmentInfo info;
   List<HospitalListData> hospitals;
   _HospitalListViewState({Key key, this.info});
+  Loader loader = Loader(true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.appBG,
-        appBar: BaseAppBar(title:'My Health',backgroundColor:AppColor.appBG,appBar:AppBar()),
+        appBar: BaseAppBar(title:UIComponent.patientTitle,appBar:AppBar()),
         drawer: AppDrawer(context).getDrawer(),
         body:Container(
           child: FutureBuilder(
@@ -38,7 +37,7 @@ class _HospitalListViewState extends State<HospitalListView> {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
-              return CircularProgressIndicator();
+              return loader;
             },
           ),
         ),
@@ -56,16 +55,14 @@ class _HospitalListViewState extends State<HospitalListView> {
   ListTile makeListTile(HospitalListData data) => ListTile(
     contentPadding:
     EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-    leading: Container(
-      padding: EdgeInsets.only(right: 12.0),
-      decoration: new BoxDecoration(
-          border: new Border(
-              right: new BorderSide(width: 1.0, color: Colors.white24))),
-      child: Icon(Icons.autorenew, color: Colors.white),
+    leading: CircleAvatar(
+      radius: 30.0,
+      backgroundColor: Colors.grey,
+      backgroundImage: data.icon != null ? NetworkImage(data.icon):UIComponent.defaultAvatar,
     ),
     title: Text(
       data.name,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      style: UIComponent.list.titleTextStyle,
     ),
     subtitle: Row(
       children: <Widget>[
@@ -74,12 +71,12 @@ class _HospitalListViewState extends State<HospitalListView> {
           child: Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Text(data.phone,
-                  style: TextStyle(color: Colors.white))),
+                  style: UIComponent.list.subtitleTextStyle)),
         )
       ],
     ),
     trailing:
-    Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+    Icon(Icons.keyboard_arrow_right, color: UIComponent.list.trailingIconColor, size: 30.0),
     onTap: () {
       this.info.hospitalData = data;
       this.navigateToSearch(this.info);
@@ -90,7 +87,7 @@ class _HospitalListViewState extends State<HospitalListView> {
     elevation: 8.0,
     margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     child: Container(
-      decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+      decoration: UIComponent.list.boxDecoration,
       child: makeListTile(data),
     ),
   );

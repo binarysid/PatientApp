@@ -7,8 +7,12 @@ class HospitalListData {
   int id;
   String name;
   String phone;
-
-  HospitalListData(this.id, this.name,this.phone,this.email);
+  String address;
+  double lat;
+  double lng;
+  String icon;
+  HospitalListData(this.id, this.name,this.phone,this.email,this.address,
+  this.lat,this.lng,this.icon);
 
   factory HospitalListData.fromJson(Map<String, dynamic> json) =>
       _$HospitalListDataFromJson(json);

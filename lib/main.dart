@@ -10,7 +10,7 @@ import 'Model/AppointmentNotificationData.dart';
 import 'Services/PushNotification.dart';
 import 'Views/BaseView.dart';
 import 'package:patientapp/Helper/Cache.dart';
-
+import 'package:patientapp/Helper/CommonViews.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   var notification = PushNotification();
@@ -24,6 +24,9 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      return MaterialApp(
+         theme: ThemeData(primarySwatch: AppColor.appBg,
+           visualDensity: VisualDensity.adaptivePlatformDensity,
+         ),
           home: BaseView(),
           routes: {
             '/login': (context) => LoginView(),

@@ -3,8 +3,7 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorScheduleListData.dart';
 import 'DoctorAppointmentView.dart';
-import 'package:common_utils/AppColor.dart';
-import 'package:common_utils/BaseAppBar.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
 class DoctorScheduleListView extends StatefulWidget {
@@ -22,8 +21,7 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.appBG,
-        appBar: BaseAppBar(title:'My Health',backgroundColor:AppColor.appBG,appBar:AppBar()),
+        appBar: BaseAppBar(title:info.doctorData.name,appBar:AppBar()),
         body:Container(
           child: FutureBuilder(
             future: this.getDoctorlScheduleBy(this.info.hospitalData.id, this.info.doctorData.id),
@@ -56,18 +54,18 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
       padding: EdgeInsets.only(right: 12.0),
       decoration: new BoxDecoration(
           border: new Border(
-              right: new BorderSide(width: 1.0, color: Colors.white24))),
-      child: Icon(Icons.autorenew, color: Colors.white),
+              right: new BorderSide(width: 1.0, color: AppColor.appBG))),
+      child: Icon(Icons.calendar_today_sharp, color: UIComponent.list.leadingIconColor),
     ),
     title: Text(
       data.day,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      style: UIComponent.list.titleTextStyle
     ),
     subtitle: Text(data.date,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      style: UIComponent.list.subtitleTextStyle,
     ),
     trailing:
-    Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+    Icon(Icons.keyboard_arrow_right, color: UIComponent.list.trailingIconColor, size: 30.0),
     onTap: () {
       this.info.scheduleData = data;
       navigateToDoctorAppointment(this.info);
@@ -78,7 +76,7 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
     elevation: 8.0,
     margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     child: Container(
-      decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+      decoration: UIComponent.list.boxDecoration,
       child: makeListTile(data),
     ),
   );

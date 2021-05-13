@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Helper/Cache.dart';
 import 'package:common_utils/NetworkCode.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/UserData.dart';
 import 'package:patientapp/Router/BaseViewRouter.dart';
@@ -17,6 +18,7 @@ class BaseView extends StatelessWidget {
     return SplashScreen(
         onSplashScreenEnd: (){
           Cache.getUserData().then((value){
+            UIComponent.patientTitle = value.name;
             if(value.id==null){
               router.navigateToLogin(context);
             }
