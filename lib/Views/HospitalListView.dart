@@ -26,7 +26,6 @@ class _HospitalListViewState extends State<HospitalListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: BaseAppBar(title:UIComponent.patientTitle,appBar:AppBar()),
-        drawer: AppDrawer(context).getDrawer(),
         body:Container(
           child: FutureBuilder(
             future: this.getHospitalList(),

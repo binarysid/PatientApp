@@ -20,7 +20,9 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: BaseAppBar(title:info.specializationData.name,appBar:AppBar()),
+      //const Icon(Icons.search)
+        appBar: BaseAppBar(title:info.specializationData.name,appBar:AppBar(),
+        icon: Icon(Icons.search),),
         body:Container(
           child: FutureBuilder(
             future: this.getDoctorlListBy(this.info.hospitalData.id, this.info.specializationData.id, this.info.specializationData.name),

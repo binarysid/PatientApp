@@ -23,11 +23,11 @@ class BaseView extends StatelessWidget {
               router.navigateToLogin(context);
             }
             else{
-              router.navigateToHospitalList(context, AppointmentInfo(value));
+              router.navigateToHome(context, AppointmentInfo(value));
             }
           });
         },
-        splashDelay: 3, splashImage: 'assets/splash.jpg',
+        splashDelay: 3, splashImage: 'images/splash.jpg',
         backgroundColor: Colors.white);
   }
 }
