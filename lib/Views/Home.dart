@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               _makeAppointment(),
               SizedBox(height: 15),
-              _searchByDoctor()
+              _appointments()
             ],
           ),
         ),
@@ -42,8 +42,8 @@ class _HomeState extends State<Home> {
   MenuButton _makeAppointment()=>MenuButton(onPressed: (){
     this.router.navigateToHospitalList(context,this.info);
   }, title: "Get an Appointment", icon: Icon(Icons.widgets),width:250);
-  MenuButton _searchByDoctor()=>MenuButton(onPressed: (){
-    // this.router.navigateToAllDoctorList(context, info);
-  }, title: "Profile", icon: Icon(Icons.account_box),width:250);
+  MenuButton _appointments()=>MenuButton(onPressed: (){
+    this.router.navigateToAppointmentList(context);
+  }, title: "My Appointments", icon: Icon(Icons.account_box),width:250);
 
 }

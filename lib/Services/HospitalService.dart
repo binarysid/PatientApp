@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:patientapp/Model/AppointmentData.dart';
 import 'package:patientapp/Model/HospitalData.dart';
 import 'dart:convert';
 import 'package:patientapp/Model/HospitalListData.dart';
@@ -7,6 +8,17 @@ import 'package:patientapp/Helper/RestURL.dart';
 
 class HospitalService{
 
+  Future<AppointmentData> getAppointments(Map<String, dynamic> jsonMap) async{
+    try {
+      var url = Uri.parse(RestURL.appointmentList);
+      Response response = await post(url, body:jsonMap);
+      Map data = jsonDecode(response.body);
+      return AppointmentData.fromJson(data);
+    }
+    catch(e){
+      return null;
+    }
+  }
   Future<HospitalData> getHospitalList() async{
     try {
       var url = Uri.parse(RestURL.hospitalList);

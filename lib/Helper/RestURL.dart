@@ -14,5 +14,6 @@ class RestURL{
   static final doctorProfile = hospitalBaseURL + "doctorProfileBy";
   static final doctorSchedules = hospitalBaseURL + "doctorschedules";
   static final doctorAppointment = hospitalBaseURL + "doctorappointment";
+  static final appointmentList = patientBaseURL + "getappointments";
   static final commonHeader = {"Content-type": "application/json"};
 }
