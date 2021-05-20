@@ -21,7 +21,7 @@ class _AppointmentListViewState extends State<AppointmentListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(title:UIComponent.doctorTitle,appBar:AppBar()),
+      appBar: BaseAppBar(title:UIComponent.patientTitle,appBar:AppBar()),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder(
