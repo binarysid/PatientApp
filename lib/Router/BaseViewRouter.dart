@@ -18,6 +18,11 @@ class BaseViewRouter{
     );
   }
   navigateToHome(BuildContext context,AppointmentInfo info){
+    // Navigator.pushNamed(
+    //   context,
+    //   '/home',
+    //   arguments: info,
+    // );
     Navigator.push(
       context,
       MaterialPageRoute(

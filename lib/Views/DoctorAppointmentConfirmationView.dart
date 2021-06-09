@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:patientapp/Helper/Cache.dart';
+import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:common_utils/AppColor.dart';
 import 'package:common_utils/BaseAppBar.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
+import 'package:patientapp/Views/Home.dart';
 
 class DoctorAppointmentConfirmationView extends StatefulWidget {
   AppointmentInfo info;
@@ -31,6 +34,13 @@ class _DoctorAppointmentConfirmationViewState extends State<DoctorAppointmentCon
             title: Text('Date: ${this.info.scheduleData.date}',style: TextStyle(color: Colors.black),
             ),
           ),
+          SizedBox(height: 20,),
+          ActionButton(onPressed: (){
+            Navigator.pushAndRemoveUntil(context,
+                MaterialPageRoute(builder: (BuildContext context) => Home(info: this.info.clearAppointmentData(),)),
+                    (Route<dynamic> route) => false
+            );
+          }, title: 'back to home')
         ],
       ),
     );
@@ -42,7 +52,7 @@ class _DoctorAppointmentConfirmationViewState extends State<DoctorAppointmentCon
     );
     return Scaffold(
         backgroundColor: AppColor.appBG,
-        appBar: BaseAppBar(title:'Appointment Info',appBar:AppBar()),
+        appBar: BaseAppBar(title:'Appointment Info',appBar:AppBar(),hasBackButton: false,),
         body: sizedBox,//_doctorProfileView(this.info),
         bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );

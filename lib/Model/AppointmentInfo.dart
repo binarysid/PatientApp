@@ -15,4 +15,13 @@ class AppointmentInfo{
   DoctorScheduleListData scheduleData;
   DoctorAppointmentData appointmentData;
   AppointmentInfo([this.userData,this.hospitalData,this.specializationData,this.doctorData,this.doctorProfileData,this.scheduleData, this.appointmentData]);
+  AppointmentInfo clearAppointmentData(){
+    this.hospitalData = null;
+    this.specializationData = null;
+    this.doctorData = null;
+    this.appointmentData = null;
+    this.doctorProfileData = null;
+    this.scheduleData = null;
+    return this;
+  }
 }

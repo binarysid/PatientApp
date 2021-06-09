@@ -11,6 +11,8 @@ import 'Services/PushNotification.dart';
 import 'Views/BaseView.dart';
 import 'package:patientapp/Helper/Cache.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
+
+import 'Views/Home.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   var notification = PushNotification();

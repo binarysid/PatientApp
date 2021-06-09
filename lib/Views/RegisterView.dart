@@ -21,6 +21,7 @@ class _RegisterViewState extends State<RegisterView> {
   var name = "";
   var presenter = RegisterPresenter();
   var router = RegisterViewRouter();
+  Loader loader = Loader(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +38,7 @@ class _RegisterViewState extends State<RegisterView> {
                   userPhone(),
                   SizedBox(height: 10),
                   password(),
+                  loader,
                   SizedBox(height: 10),
                   submitOption(),
                   // Add TextFormFields and RaisedButton here.
@@ -52,11 +54,13 @@ class _RegisterViewState extends State<RegisterView> {
 extension on _RegisterViewState{
   ActionButton submitOption()=>ActionButton(onPressed: (){
     if (_formKey.currentState.validate()) {
+      loader.showLoader();
       this.presenter.register(this.name,this.phone, this.pass).then((value) =>
       {
+        loader.hideLoader(),
         if(value!=null){
           UIComponent.patientTitle = value.name,
-          this.router.navigateToHospitalList(context, AppointmentInfo(value))
+          this.router.navigateToHome(context, AppointmentInfo(value))
         }
       });
 

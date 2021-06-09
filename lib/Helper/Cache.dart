@@ -1,4 +1,5 @@
 import 'package:common_utils/NetworkCode.dart';
+import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/UserData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:common_utils/NetworkCode.dart';
@@ -53,4 +54,5 @@ class Cache{
     var getphone = await getUserPhone();
     return UserData(NetworkCode.success, getID, getName, getphone);
   }
+
 }

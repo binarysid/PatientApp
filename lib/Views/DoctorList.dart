@@ -23,17 +23,7 @@ class _DoctorListController extends State<DoctorList> {
   _DoctorListController({Key key, this.info});
   var presenter = DoctorListPresenter();
   var router = DoctorListRouter();
-  LoadingState loader = LoadingState.inactive;
-
-  @override
-  void initState() {
-    this.loader = LoadingState.loading;
-    this.presenter.getDoctorlListBy(info.hospitalData.id).then((value) {
-      this.loader = LoadingState.loaded;
-      setState(() {});
-    });
-    super.initState();
-  }
+  Loader loader = Loader(true);
 
   @override
   Widget build(BuildContext context) =>
@@ -41,22 +31,26 @@ class _DoctorListController extends State<DoctorList> {
         appBar: BaseAppBar(title:info.hospitalData.name,
           appBar:AppBar(),
           onPressIcon: (){
-            if (this.loader == LoadingState.loaded)
+            if (!this.loader.isVisible())
             showSearch(context: context, delegate: CustomSearchClass(state:this,data: this.presenter.getFilteredDoctorList()));
           },
         ),
         bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
         body:
           Container(
-            child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            if (this.loader == LoadingState.loading)
-            LoaderView.loader(),
-            if (this.loader == LoadingState.loaded)
-            _DoctorListView(this)
-            ],
-            ),
+            child:
+            FutureBuilder(
+              future: this.presenter.getDoctorlListBy(info.hospitalData.id),
+              builder: (context,snapshot){
+                if (snapshot.connectionState==ConnectionState.done){
+                  loader.hideLoader();
+                  return _DoctorListView(this);
+                }
+                else{
+                  return loader;
+                }
+              },
+            )
           )
       );
 
