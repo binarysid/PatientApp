@@ -54,7 +54,6 @@ class _DoctorAppointmentConfirmationViewState extends State<DoctorAppointmentCon
         backgroundColor: AppColor.appBG,
         appBar: BaseAppBar(title:'Appointment Info',appBar:AppBar(),hasBackButton: false,),
         body: sizedBox,//_doctorProfileView(this.info),
-        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
 

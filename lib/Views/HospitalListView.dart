@@ -40,7 +40,6 @@ class _HospitalListViewState extends State<HospitalListView> {
             },
           ),
         ),
-        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   ListView _hospitalListView(List<HospitalListData> data) {

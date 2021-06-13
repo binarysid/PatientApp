@@ -46,7 +46,6 @@ class _RegisterViewState extends State<RegisterView> {
             ),
           )
       ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
 }

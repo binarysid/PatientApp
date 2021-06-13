@@ -36,7 +36,6 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
             },
           ),
         ),
-        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   ListView _doctorListView(List<DoctorScheduleListData> data) {

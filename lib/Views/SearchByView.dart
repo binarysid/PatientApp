@@ -34,7 +34,6 @@ class _SearchPageViewState extends State<SearchPageView> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   MenuButton _searchBySpecialization()=>MenuButton(onPressed: (){

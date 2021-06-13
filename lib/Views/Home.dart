@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
+
     );
   }
   MenuButton _makeAppointment()=>MenuButton(onPressed: (){

@@ -37,7 +37,6 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
             },
           ),
         ),
-        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   ListView _doctorListView(List<DoctorListData> data) {
@@ -53,7 +52,7 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
     leading: CircleAvatar(
       radius: 30.0,
       backgroundColor: Colors.grey,
-      backgroundImage: data.photo != null ? NetworkImage(data.photo):UIComponent.defaultAvatar,
+      backgroundImage: (data.photo != null) ? NetworkImage(data.photo):UIComponent.defaultAvatar,
     ),
     title: Text(
       data.name,

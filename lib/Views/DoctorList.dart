@@ -28,14 +28,13 @@ class _DoctorListController extends State<DoctorList> {
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        appBar: BaseAppBar(title:info.hospitalData.name,
+        appBar: BaseAppBar(title:info.hospitalData.name,icon: Icon(Icons.search),
           appBar:AppBar(),
           onPressIcon: (){
             if (!this.loader.isVisible())
             showSearch(context: context, delegate: CustomSearchClass(state:this,data: this.presenter.getFilteredDoctorList()));
           },
         ),
-        bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
         body:
           Container(
             child:
@@ -195,7 +194,7 @@ class _DoctorListView extends StatelessWidget{
     leading: CircleAvatar(
       radius: 30.0,
       backgroundColor: Colors.grey,
-      backgroundImage: data.photo != null ? NetworkImage(data.photo):UIComponent.defaultAvatar,
+      backgroundImage: (data.photo != null) ? NetworkImage(data.photo):UIComponent.defaultAvatar,
     ),
     title: Text(
       data.name,

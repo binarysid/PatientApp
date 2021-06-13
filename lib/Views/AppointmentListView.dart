@@ -36,7 +36,6 @@ class _AppointmentListViewState extends State<AppointmentListView> {
           },
         )
       ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
 }
@@ -60,7 +59,7 @@ extension on _AppointmentListViewState{
         children: [
           ListTile(
             leading: Text(
-              'doctor: ${data.doctor}',
+              '${data.doctor}',
               style: UIComponent.list.titleTextStyle,
             ),
             trailing: this.callBtn(data.doctorContact),
@@ -73,7 +72,18 @@ extension on _AppointmentListViewState{
           )),
           SizedBox(height: 10,),
           ListTile(
-            leading: Text(
+            leading: Text('${data.hospital}',style: TextStyle(fontWeight: FontWeight.bold),),
+          ),
+          SizedBox(height: 0.5,width: double.infinity,
+              child: const DecoratedBox(
+                decoration: const BoxDecoration(
+                    color: AppColor.appBG
+                ),
+              )),
+          SizedBox(height: 10,),
+          ListTile(
+            leading: Text('${data.date}',style: TextStyle(fontWeight: FontWeight.bold),),
+            trailing: Text(
               'serial ${data.serial}',
               style: UIComponent.list.titleTextStyle,
             ),

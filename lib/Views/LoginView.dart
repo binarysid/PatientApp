@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:common_utils/NetworkCode.dart';
+import 'package:patientapp/Helper/CommonUtils.dart';
 import 'package:patientapp/Presenter/LoginPresenter.dart';
 import 'package:patientapp/Router/LoginViewRouter.dart';
 import 'package:patientapp/Services/AuthService.dart';
@@ -29,7 +30,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(title:UIComponent.hospitalAppName,appBar:AppBar()),
-      drawer: AppDrawer(context).getDrawer(),
       body: Form(
           key: _formKey,
           child: Padding(
@@ -48,7 +48,6 @@ class _LoginViewState extends State<LoginView> {
             ),
           )
       ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
     );
   }
   Padding registerLink()=> Padding(
@@ -75,8 +74,11 @@ class _LoginViewState extends State<LoginView> {
       {
         loader.hideLoader(),
         UIComponent.patientTitle = value.name,
-        if(value!=null){
-          this.router.navigateToHospitalList(context, AppointmentInfo(value))
+        if(value.code==NetworkCode.success){
+          this.router.navigateToHome(context, AppointmentInfo(value))
+        }
+        else{
+          CommonToast.showToastForAsyncRequest(value.message)
         }
       });
     }

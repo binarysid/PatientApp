@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
+import 'package:patientapp/Views/Home.dart';
 import 'package:patientapp/Views/HospitalListView.dart';
 import 'package:patientapp/Views/RegisterView.dart';
 
@@ -19,6 +20,14 @@ class LoginViewRouter{
       context,
       MaterialPageRoute(
         builder: (context) => RegisterView(),
+      ),
+    );
+  }
+  navigateToHome(BuildContext context,AppointmentInfo info) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Home(info: info),
       ),
     );
   }

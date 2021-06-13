@@ -37,7 +37,6 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
           },
         ),
       ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
 
     );
   }

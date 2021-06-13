@@ -40,7 +40,6 @@ class _SpecializationListViewState extends State<SpecializationListView> {
             },
           ),
         ),
-      bottomNavigationBar: BottomBar(backgroundColor:AppColor.appBG),
 
     );
   }
