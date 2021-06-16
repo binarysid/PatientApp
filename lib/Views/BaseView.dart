@@ -18,11 +18,11 @@ class BaseView extends StatelessWidget {
     return SplashScreen(
         onSplashScreenEnd: (){
           Cache.getUserData().then((value){
-            UIComponent.patientTitle = value.name;
-            if(value.id==null){
+            if(value==null){
               router.navigateToLogin(context);
             }
             else{
+              UIComponent.patientTitle = value.name;
               router.navigateToHome(context, AppointmentInfo(value));
             }
           });

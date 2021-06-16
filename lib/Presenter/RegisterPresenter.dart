@@ -12,8 +12,7 @@ class RegisterPresenter{
       var notificationRegToken = userData[1];
       user.phone = phone;
       user.name = name;
-      Cache.addLoginInfoToCache(
-          user.id, name, user.phone, notificationRegToken);
+      Cache.addLoginInfoToCache(user, notificationRegToken);
       return user;
     }
     return null;

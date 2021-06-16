@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/DoctorListData.dart';
+import 'package:patientapp/Presenter/DoctorListPresenter.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'DoctorProfileView.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
@@ -17,6 +18,7 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
   AppointmentInfo info;
   List<DoctorListData> doctors;
   _DoctorListBySpecializationViewState({Key key, this.info});
+  var presenter = DoctorListPresenter();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,7 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
         icon: Icon(Icons.search),),
         body:Container(
           child: FutureBuilder(
-            future: this.getDoctorlListBy(this.info.hospitalData.id, this.info.specializationData.id, this.info.specializationData.name),
+            future: this.presenter.getDoctorlList(this.info.hospitalData.id, this.info.specializationData.id, this.info.specializationData.name),
             builder: (context,snapshot){
               if (snapshot.hasData){
                 this.doctors = snapshot.data;
@@ -93,12 +95,5 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
         builder: (context) => DoctorProfileView(info:info),
       ),
     );
-  }
-  Future<List<DoctorListData>> getDoctorlListBy(int hospitalID, int specializationID, String specialization) async{
-    var service = DoctorService();
-    var doctorData =await service.getDoctorListBy(hospitalID, specializationID: specializationID, specialization: specialization);
-    if (doctorData.code == 200){
-      return doctorData.list;
-    }
   }
 }

@@ -10,6 +10,8 @@
         android:label="patientapp"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDBTUO1257eDaXIPtyv-bkWa0w8drqBc68"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

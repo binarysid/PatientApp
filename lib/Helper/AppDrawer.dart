@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Services/AuthService.dart';
 import 'package:patientapp/Views/LoginView.dart';
+import 'package:patientapp/Views/Profile.dart';
 
 class AppDrawer{
   BuildContext context;
@@ -19,7 +20,12 @@ class AppDrawer{
   ListTile profile() =>ListTile(
     title: Text('Profile'),
     onTap: () {
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Profile(),
+        ),
+      );
     },
   );
   ListTile logout() =>ListTile(

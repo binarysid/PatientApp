@@ -8,12 +8,20 @@ class DoctorListPresenter{
   List<DoctorListData> _filteredDoctorList;
 
   Future getDoctorlListBy(int hospitalID) async{
-    var service = DoctorService();
     var doctorData =await service.getDoctorListBy(hospitalID);
-    this._doctorList = doctorData.list;
-    this._filteredDoctorList = doctorData.list;
+    var doctorList = doctorData.list.where((element) => element.profileCompletionPercentage==100).toList();
+    this._doctorList = doctorList;
+    this._filteredDoctorList = doctorList;
   }
   List<DoctorListData> getFilteredDoctorList(){
     return _filteredDoctorList;
+  }
+  Future<List<DoctorListData>> getDoctorlList(int hospitalID, int specializationID, String specialization) async{
+
+    var doctorData =await service.getDoctorListBy(hospitalID, specializationID: specializationID, specialization: specialization);
+    if (doctorData.code == 200){
+      var doctorList = doctorData.list.where((element) => element.profileCompletionPercentage==100).toList();
+      return doctorList;
+    }
   }
 }

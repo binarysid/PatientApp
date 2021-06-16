@@ -10,9 +10,11 @@ class DoctorListData {
   String phone;
   String specialization;
   String photo;
+  @JsonKey(name: 'profile_completion_percentage')
+  int profileCompletionPercentage;
 
   DoctorListData(this.id, this.name,this.phone,
-      this.degrees,this.address,this.specialization,this.photo);
+      this.degrees,this.address,this.specialization,this.photo,this.profileCompletionPercentage);
   factory DoctorListData.fromJson(Map<String, dynamic> json) => _$DoctorListDataFromJson(json);
   Map<String, dynamic> toJson() => _$DoctorListDataToJson(this);
 }

@@ -8,6 +8,7 @@ class RestURL{
   static final doctorBaseURL = baseURL+"doctor/api/";
   static final login = patientBaseURL + "loginpatient";
   static final register = patientBaseURL + "registerpatient";
+  static final updateProfile = patientBaseURL + "updateinfo";
   static final hospitalList = hospitalBaseURL + "hospitals";
   static final specializationList = hospitalBaseURL + "specializationlist";
   static final doctorList = doctorBaseURL + "list";

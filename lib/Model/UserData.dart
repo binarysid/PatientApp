@@ -8,8 +8,14 @@ class UserData {
   String name;
   String phone;
   String message;
+  String address;
+  String lat;
+  String lng;
+  String email;
+  String photo;
 
-  UserData(this.code, this.id, this.name, this.phone,this.message);
+  UserData(this.code, this.id, this.name, this.phone,this.message,this.address,
+      this.lat,this.lng,this.email,this.photo);
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 

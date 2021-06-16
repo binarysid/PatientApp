@@ -12,7 +12,7 @@ class LoginPresenter{
     var notificationRegToken = userData[1];
     if (user.code == NetworkCode.success) {
       user.phone = phone;
-      Cache.addLoginInfoToCache(user.id, user.name,user.phone,notificationRegToken);
+      Cache.addLoginInfoToCache(user,notificationRegToken);
     }
     return user;
   }

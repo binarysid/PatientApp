@@ -8,8 +8,8 @@ class AppointmentListPresenter{
   List<AppointmentListData> data;
   var service = HospitalService();
   Future<List<AppointmentListData>> getAppointments() async{
-      var id = await Cache.getUserID();
-      Map<String, dynamic> jsonMap = {'id':'${id}'};
+      var user = await Cache.getUserData();
+      Map<String, dynamic> jsonMap = {'id':'${user.id}'};
       var data = await service.getAppointments(jsonMap);
       if(data != null && data.code == NetworkCode.success){
         return data.data;
