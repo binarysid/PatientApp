@@ -18,6 +18,7 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
   DoctorProfileData profile;
   _DoctorProfileViewState({Key key, this.info});
   final textFontSize = 17.0;
+  Loader loader = Loader(true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +27,15 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
         child: FutureBuilder(
           future: this.getDoctorProfileBy(this.info.hospitalData.id, this.info.doctorData.id),
           builder: (context,snapshot){
-            if (snapshot.hasData){
+            if (snapshot.connectionState==ConnectionState.done){
+              loader.hideLoader();
               this.profile = snapshot.data;
               this.info.doctorData.degrees = this.profile.degrees;
               return _doctorProfileView(this.profile);
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
+            } else{
+              return loader;
             }
-            return CircularProgressIndicator();
+
           },
         ),
       ),
@@ -77,7 +79,7 @@ class _DoctorProfileViewState extends State<DoctorProfileView> {
                 ),
                 SizedBox(height: 10.0,),
                 Text(
-                  'Specialization: '+ this.info.specializationData.name,
+                  'Specialization: '+ data.specialization,
                   style: UIComponent.list.titleTextStyle,
                 ),
                 SizedBox(height: 16.0,),

@@ -21,9 +21,10 @@ class DoctorProfileData {
   @JsonKey(name: 'degrees')
   String degrees;
   String photo;
+  String specialization;
   DoctorProfileData(this.phone, this.roomNo,this.visitEndDay,
       this.visitEndTime,this.visitFee,this.visitStartDay,
-      this.visitStartTime,this.days,this.degrees,this.photo);
+      this.visitStartTime,this.days,this.degrees,this.photo,this.specialization);
   factory DoctorProfileData.fromJson(Map<String, dynamic> json) => _$DoctorProfileDataFromJson(json);
   Map<String, dynamic> toJson() => _$DoctorProfileDataToJson(this);
 }

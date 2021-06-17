@@ -7,6 +7,8 @@ import 'DoctorProfileView.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
+import 'DoctorSearch.dart';
+
 class DoctorListBySpecializationView extends StatefulWidget {
   AppointmentInfo info;
   DoctorListBySpecializationView({Key key, this.info}) : super(key: key);
@@ -19,23 +21,31 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
   List<DoctorListData> doctors;
   _DoctorListBySpecializationViewState({Key key, this.info});
   var presenter = DoctorListPresenter();
+  Loader loader = Loader(true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //const Icon(Icons.search)
         appBar: BaseAppBar(title:info.specializationData.name,appBar:AppBar(),
-        icon: Icon(Icons.search),),
+        icon: Icon(Icons.search),onPressIcon: (){
+            if (!this.loader.isVisible())
+              showSearch(context: context, delegate: DoctorSearch(onSelectItem: (data){
+                this.setData(data);
+              },data: this.doctors));
+          },),
+
         body:Container(
           child: FutureBuilder(
             future: this.presenter.getDoctorlList(this.info.hospitalData.id, this.info.specializationData.id, this.info.specializationData.name),
             builder: (context,snapshot){
-              if (snapshot.hasData){
+              if (snapshot.connectionState==ConnectionState.done){
+                loader.hideLoader();
                 this.doctors = snapshot.data;
                 return _doctorListView(this.doctors);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+              } else{
+                return loader;
               }
-              return CircularProgressIndicator();
             },
           ),
         ),
@@ -74,11 +84,13 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
     trailing:
     Icon(Icons.keyboard_arrow_right, color: UIComponent.list.trailingIconColor, size: 30.0),
     onTap: () {
-      this.info.doctorData = data;
-      navigateToDoctorProfile(this.info);
+      setData(data);
     },
   );
-
+  setData(DoctorListData data){
+    this.info.doctorData = data;
+    navigateToDoctorProfile(this.info);
+  }
   Card makeCard(DoctorListData data) => Card(
     elevation: 8.0,
     margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
