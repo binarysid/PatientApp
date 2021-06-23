@@ -9,8 +9,8 @@ class UserData {
   String phone;
   String message;
   String address;
-  String lat;
-  String lng;
+  double lat;
+  double lng;
   String email;
   String photo;
 

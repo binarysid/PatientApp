@@ -131,7 +131,7 @@ class ProfileController extends State<Profile> {
           ),
           onTap: (){
               loader.showLoader();
-              this.presenter.updateInfo(name, this.data.id, phone, email,
+              this.presenter.updateInfo(name, this.data.id, email,
                   this.selectedLocation, _image, data, logoUpdated).then((value) =>
               {
                 loader.hideLoader(),
@@ -153,11 +153,7 @@ class ProfileController extends State<Profile> {
   );
   Padding phoneView()=>Padding(
     padding: const EdgeInsets.fromLTRB(left, top, right, 0),
-    child: TextFormEditable(hintText: phoneHint,initialText:this.data.phone,onTextChange: (value){
-      this.phone = phone;
-    },validator: (value){
-
-    },
+    child: TextFormEditable(hintText: phoneHint,initialText:this.data.phone,isEnable: false,
     ),
   );
   Padding emailView()=>Padding(

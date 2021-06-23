@@ -13,14 +13,11 @@ class ProfilePresenter{
   Stream<dynamic> get getProfilePic=>_profilePicController.stream;
   var service = PatientService();
 
-  Future<String> updateInfo(String name, int id, String phone, String email,
+  Future<String> updateInfo(String name, int id, String email,
       LocationData location, File logo, UserData data,bool logoUpdated) async{
     Map<String, dynamic> jsonMap = {'id':'${id}'};
     if(name.isNotEmpty && name!=data.name){
       jsonMap['name'] = '$name';
-    }
-    if(phone.isNotEmpty && phone!=data.phone){
-      jsonMap['phone'] = '$phone';
     }
     if(email.isNotEmpty && email!=data.email){
       jsonMap['email'] = '$email';
@@ -36,10 +33,15 @@ class ProfilePresenter{
       jsonMap['photo']='$base64Image';
     }
     var userData = await service.updateInfo(jsonMap);
-    if(userData.code==NetworkCode.success){
-      Cache.updateUserInfo(userData);
+    if(userData != null) {
+      if (userData.code == NetworkCode.success) {
+        Cache.updateUserInfo(userData);
+      }
+      return userData.message;
     }
-    return userData.message;
+    else{
+      return 'something went wrong.try again';
+    }
   }
   getProfileImage(String icon){
     PaintingBinding.instance.imageCache.clear();

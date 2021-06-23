@@ -19,7 +19,8 @@ class AuthService{
       var url = Uri.parse(RestURL.login);
       Response response = await post(url, body: jsonMap);
       Map data = jsonDecode(response.body);
-      return [UserData.fromJson(data),notificationRegToken];
+      final user = UserData.fromJson(data);
+      return [user,notificationRegToken];
     }
     catch(e){
       return null;

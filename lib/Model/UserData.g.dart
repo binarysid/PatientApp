@@ -14,8 +14,8 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
     json['phone'] as String,
     json['message'] as String,
     json['address'] as String,
-    json['lat'] as String,
-    json['lng'] as String,
+    (json['lat'] as num)?.toDouble(),
+    (json['lng'] as num)?.toDouble(),
     json['email'] as String,
     json['photo'] as String,
   );

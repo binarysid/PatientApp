@@ -35,7 +35,7 @@ class AppDrawer{
     },
   );
   DrawerHeader header() =>DrawerHeader(
-    child: Text('Menu'),
+    child: Text(''),
     decoration: BoxDecoration(
       color: Colors.blue,
     ),

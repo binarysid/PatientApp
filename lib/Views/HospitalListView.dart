@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:patientapp/Helper/AppDrawer.dart';
+import 'package:patientapp/Model/HospitalData.dart';
 import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Services/HospitalService.dart';
+import 'package:patientapp/Views/HospitalSearch.dart';
 import 'package:patientapp/Views/SearchByView.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
@@ -25,22 +27,36 @@ class _HospitalListViewState extends State<HospitalListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: BaseAppBar(title:UIComponent.patientTitle,appBar:AppBar()),
+        appBar: BaseAppBar(title:UIComponent.patientTitle,appBar:AppBar(),
+          icon: Icon(Icons.search),
+            onPressIcon: (){
+              if (!this.loader.isVisible())
+                showSearch(context: context, delegate: HospitalSearch(onSelectItem: (data){
+                  this.setData(data);
+                },data: this.hospitals));
+            }
+        ),
+
         body:Container(
           child: FutureBuilder(
             future: this.getHospitalList(),
             builder: (context,snapshot){
-              if (snapshot.hasData){
+              if (snapshot.connectionState == ConnectionState.done){
+                this.loader.hideLoader();
                 this.hospitals = snapshot.data;
                 return _hospitalListView(this.hospitals);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+              } else{
+                return loader;
               }
-              return loader;
+
             },
           ),
         ),
     );
+  }
+  setData(HospitalListData data){
+    this.info.hospitalData = data;
+    this.navigateToSearch(this.info);
   }
   ListView _hospitalListView(List<HospitalListData> data) {
     return ListView.builder(
@@ -76,8 +92,7 @@ class _HospitalListViewState extends State<HospitalListView> {
     trailing:
     Icon(Icons.keyboard_arrow_right, color: UIComponent.list.trailingIconColor, size: 30.0),
     onTap: () {
-      this.info.hospitalData = data;
-      this.navigateToSearch(this.info);
+      this.setData(data);
     },
   );
 
