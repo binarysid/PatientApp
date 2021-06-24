@@ -38,21 +38,21 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
                 Divider(color: Colors.black),
                 ListTile(
                   leading: Icon(Icons.account_box),
-                  title: Text('Chamber: ${this.info.hospitalData.name}',style: TextStyle(color: Colors.black),
+                  title: Text('${this.info.hospitalData.name}',style: TextStyle(color: Colors.black),
                   ),
-                  subtitle: Text('${this.info.hospitalData.phone}'),
+                  subtitle: Text('phone: ${this.info.hospitalData.phone}'),
                 ),
                 Divider(color: Colors.black),
-                loader,
                 ListTile(
                   leading: Icon(Icons.account_box),
                   title: Text('Room No: ${this.info.doctorProfileData.roomNo}',style: TextStyle(color: Colors.black),
                   ),
                 ),
+                if(this.loader.isVisible()) loader,
                 Divider(color: Colors.black),
                 ListTile(
                   leading: Icon(Icons.account_box),
-                  title: Text('Fee: ${this.info.doctorProfileData.visitFee}',style: TextStyle(color: Colors.black),
+                  title: Text('Fee: ${this.info.doctorProfileData.visitFee} bdt',style: TextStyle(color: Colors.black),
                   ),
                 ),
                 Divider(color: Colors.black),
@@ -64,8 +64,14 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
                 Divider(color: Colors.black,height: 30,),
                 ActionButton(onPressed: () async {
                   loader.showLoader();
+                  setState(() {
+
+                  });
                   var appointMentData = await this.makeAppointment(this.info);
                   loader.hideLoader();
+                  setState(() {
+
+                  });
                   if(appointMentData.code == NetworkCode.success) {
                     this.info.appointmentData = appointMentData;
                     this.navigateToAppointmentConfirm(this.info);

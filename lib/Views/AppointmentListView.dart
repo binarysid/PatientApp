@@ -57,13 +57,20 @@ extension on _AppointmentListViewState{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
-            leading: Text(
-              '${data.doctor}',
-              style: UIComponent.list.titleTextStyle,
+          Container(
+            decoration: new BoxDecoration (
+                color: AppColor.appBg
             ),
-            trailing: this.callBtn(data.doctorContact),
+            child: ListTile(
+              leading: Text(
+                '${data.doctor}\n(${data.specialization})',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+
+              trailing: this.callBtn(data.doctorContact),
+            ),
           ),
+
           SizedBox(height: 0.5,width: double.infinity,
               child: const DecoratedBox(
             decoration: const BoxDecoration(
@@ -95,5 +102,5 @@ extension on _AppointmentListViewState{
   );
   IconButton callBtn(String number)=>IconButton(onPressed: (){
     Utility.makeCall(number);
-  }, icon: Icon(Icons.call, color: UIComponent.list.trailingIconColor, size: 25.0),);
+  }, icon: Icon(Icons.call, color: Colors.white, size: 25.0),);
 }

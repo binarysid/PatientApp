@@ -17,7 +17,7 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
   AppointmentInfo info;
   List<DoctorScheduleListData> doctors;
   _DoctorScheduleListViewState({Key key, this.info});
-
+  Loader loader = Loader(true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +26,14 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
           child: FutureBuilder(
             future: this.getDoctorlScheduleBy(this.info.hospitalData.id, this.info.doctorData.id),
             builder: (context,snapshot){
-              if (snapshot.hasData){
+              if (snapshot.connectionState == ConnectionState.done){
+                loader.hideLoader();
                 this.doctors = snapshot.data;
                 return _doctorListView(this.doctors);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+              } else{
+                return loader;
               }
-              return CircularProgressIndicator();
+
             },
           ),
         ),

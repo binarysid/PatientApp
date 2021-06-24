@@ -5,7 +5,7 @@ import 'package:patientapp/Model/HospitalData.dart';
 import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Views/HospitalSearch.dart';
-import 'package:patientapp/Views/SearchByView.dart';
+import 'package:patientapp/Views/SearchPageView.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
@@ -43,8 +43,13 @@ class _HospitalListViewState extends State<HospitalListView> {
             builder: (context,snapshot){
               if (snapshot.connectionState == ConnectionState.done){
                 this.loader.hideLoader();
-                this.hospitals = snapshot.data;
-                return _hospitalListView(this.hospitals);
+                if(snapshot.hasData) {
+                  this.hospitals = snapshot.data;
+                  return _hospitalListView(this.hospitals);
+                }
+                else{
+                  return emptyListView();
+                }
               } else{
                 return loader;
               }
@@ -58,6 +63,10 @@ class _HospitalListViewState extends State<HospitalListView> {
     this.info.hospitalData = data;
     this.navigateToSearch(this.info);
   }
+  Widget emptyListView()=>Center(child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text('No Hospital found',style: TextStyle(fontWeight: FontWeight.bold),),
+  ));
   ListView _hospitalListView(List<HospitalListData> data) {
     return ListView.builder(
         itemCount: data.length,
@@ -119,6 +128,7 @@ class _HospitalListViewState extends State<HospitalListView> {
     if (hospitalData.code == 200){
       return hospitalData.list;
     }
+    return null;
   }
 }
 

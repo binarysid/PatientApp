@@ -60,6 +60,7 @@ class _DoctorListController extends State<DoctorList> {
     this.info.doctorData = data;
     this.router.navigateToDoctorProfile(context, info);
   }
+
 }
 
 
@@ -68,8 +69,18 @@ class _DoctorListView extends StatelessWidget{
   DoctorList get widget => state.widget;
   _DoctorListView(this.state, {Key key}) : super(key: key);
   Widget build(BuildContext context){
-    return _doctorListView(this.state.presenter.getFilteredDoctorList());
+    final doctors = this.state.presenter.getFilteredDoctorList();
+    if(doctors != null && doctors.isNotEmpty){
+      return _doctorListView(doctors);
+    }
+    else{
+      return emptyListView();
+    }
   }
+  Widget emptyListView()=>Center(child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text('No doctor found',style: TextStyle(fontWeight: FontWeight.bold),),
+  ));
   ListView _doctorListView(List<DoctorListData> data) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
@@ -85,7 +96,7 @@ class _DoctorListView extends StatelessWidget{
     leading: CircleAvatar(
       radius: 30.0,
       backgroundColor: Colors.grey,
-      backgroundImage: (data.photo != null) ? NetworkImage(data.photo):UIComponent.defaultAvatar,
+      backgroundImage: (data.photo != null) ? NetworkImage(data.photo):AssetImage('images/avatar.jpg'),
     ),
     title: Text(
       data.name,

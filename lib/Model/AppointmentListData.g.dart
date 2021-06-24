@@ -18,6 +18,7 @@ AppointmentListData _$AppointmentListDataFromJson(Map<String, dynamic> json) {
     json['doctor_contact'] as String,
     json['hospital_contact'] as String,
     json['date'] as String,
+    json['specialization'] as String,
   );
 }
 
@@ -34,4 +35,5 @@ Map<String, dynamic> _$AppointmentListDataToJson(
       'doctor_contact': instance.doctorContact,
       'hospital_contact': instance.hospitalContact,
       'date': instance.date,
+      'specialization': instance.specialization,
     };
