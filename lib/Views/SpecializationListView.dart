@@ -5,6 +5,7 @@ import 'package:patientapp/Services/HospitalService.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Model/SpecializationListData.dart';
+import 'package:patientapp/Views/SpecializationSearch.dart';
 import 'DoctorListBySpecializationView.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
@@ -21,22 +22,29 @@ class _SpecializationListViewState extends State<SpecializationListView> {
   AppointmentInfo info;
   List<SpecializationListData> specializations;
   _SpecializationListViewState({Key key, this.info});
-
+  Loader loader = Loader(true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(title:info.hospitalData.name,appBar:AppBar()),
+      appBar: BaseAppBar(title:info.hospitalData.name,appBar:AppBar(),
+          icon: Icon(Icons.search),
+          onPressIcon: (){
+            if (!this.loader.isVisible())
+              showSearch(context: context, delegate: SpecializationSearch(onSelectItem: (data){
+                this.setData(data);
+              },data: this.specializations));
+          }),
       body:Container(
           child: FutureBuilder(
             future: this.getSpecializationList(this.info.hospitalData.id),
             builder: (context,snapshot){
-              if (snapshot.hasData){
+              if (snapshot.connectionState==ConnectionState.done){
+                this.loader.hideLoader();
                 this.specializations = snapshot.data;
                 return _specListView(this.specializations);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+              } else{
+                return loader;
               }
-              return CircularProgressIndicator();
             },
           ),
         ),
@@ -71,7 +79,10 @@ class _SpecializationListViewState extends State<SpecializationListView> {
       this.navigateToDoctorList(this.info);
     },
   );
-
+  setData(SpecializationListData data){
+    this.info.specializationData = data;
+    this.navigateToDoctorList(this.info);
+  }
   Card makeCard(SpecializationListData data) => Card(
     elevation: 8.0,
     margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
