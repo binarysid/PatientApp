@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(title:UIComponent.hospitalAppName,appBar:AppBar()),
+      appBar: BaseAppBar(title:UIComponent.hospitalAppName,appBar:AppBar(),hasBackButton: false,),
       body: Form(
           key: _formKey,
           child: Padding(
@@ -73,8 +73,7 @@ class _LoginViewState extends State<LoginView> {
       this.presenter.userLoginRequest(this.phone, this.pass).then((value) =>
       {
         loader.hideLoader(),
-        UIComponent.patientTitle = value.name,
-        if(value.code==NetworkCode.success){
+        if(value.code==NetworkCode.success && value.id !=null){
           this.router.navigateToHome(context, AppointmentInfo(value))
         }
         else{

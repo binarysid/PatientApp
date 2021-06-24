@@ -26,7 +26,6 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(title:UIComponent.hospitalAppName,appBar:AppBar()),
-      drawer: AppDrawer(context).getDrawer(),
       body: Form(
           key: _formKey,
           child: Padding(
@@ -57,9 +56,11 @@ extension on _RegisterViewState{
       this.presenter.register(this.name,this.phone, this.pass).then((value) =>
       {
         loader.hideLoader(),
-        if(value!=null){
-          UIComponent.patientTitle = value.name,
+        if(value!=null && value.id !=null){
           this.router.navigateToHome(context, AppointmentInfo(value))
+        }
+        else{
+          CommonToast.showToastForAsyncRequest(value.message)
         }
       });
 
