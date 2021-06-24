@@ -10,8 +10,8 @@ class LoginPresenter{
   Future<UserData> userLoginRequest(String phone, String password) async{
     var userData = await service.loginRequest(phone, password);
     var user = userData[0];
-    var notificationRegToken = userData[1];
     if (user.code == NetworkCode.success && user.id != null) {
+      var notificationRegToken = userData[1];
       user.phone = phone;
       Cache.addLoginInfoToCache(user,notificationRegToken);
       UIComponent.patientTitle = user.name;
