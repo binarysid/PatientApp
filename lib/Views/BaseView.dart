@@ -21,7 +21,7 @@ class BaseView extends StatelessWidget {
             if(value==null){
               router.navigateToLogin(context);
             }
-            else{
+            else if(value.id!=null){
               UIComponent.patientTitle = value.name;
               router.navigateToHome(context, AppointmentInfo(value));
             }
