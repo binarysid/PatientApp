@@ -1,35 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
+import 'package:patientapp/Presenter/DoctorScheduleListPresenter.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorScheduleListData.dart';
 import 'DoctorAppointment.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
-class DoctorScheduleListView extends StatefulWidget {
+class DoctorScheduleList extends StatefulWidget {
   AppointmentInfo info;
-  DoctorScheduleListView({Key key, this.info}) : super(key: key);
+  DoctorScheduleList({Key key, this.info}) : super(key: key);
   @override
-  _DoctorScheduleListViewState createState() => _DoctorScheduleListViewState(info: this.info);
+  _DoctorScheduleListState createState() => _DoctorScheduleListState(info: this.info);
 }
 
-class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
+class _DoctorScheduleListState extends State<DoctorScheduleList>{
   AppointmentInfo info;
   List<DoctorScheduleListData> doctors;
-  _DoctorScheduleListViewState({Key key, this.info});
+  _DoctorScheduleListState({Key key, this.info});
   Loader loader = Loader(true);
+  DoctorScheduleListPresenter presenter;
+  @override
+  void initState() {
+    // TODO: implement initState
+    presenter = DoctorScheduleListPresenter(context: context,appointmentInfo: this.info);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: BaseAppBar(title:info.doctorData.name,appBar:AppBar()),
         body:Container(
           child: FutureBuilder(
-            future: this.getDoctorlScheduleBy(this.info.hospitalData.id, this.info.doctorData.id),
+            future: this.presenter.getDoctorlScheduleBy(),
             builder: (context,snapshot){
               if (snapshot.connectionState == ConnectionState.done){
                 loader.hideLoader();
-                this.doctors = snapshot.data;
-                return _doctorListView(this.doctors);
+                if(snapshot.data != null) {
+                  this.doctors = snapshot.data;
+                  return _scheduleListView(this.doctors);
+                }
+                else{
+                  return emptyListView();
+                }
               } else{
                 return loader;
               }
@@ -39,7 +52,11 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
         ),
     );
   }
-  ListView _doctorListView(List<DoctorScheduleListData> data) {
+  Widget emptyListView()=>Center(child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text('No schedule found',style: TextStyle(fontWeight: FontWeight.bold),),
+  ));
+  ListView _scheduleListView(List<DoctorScheduleListData> data) {
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) {
@@ -67,8 +84,7 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
     trailing:
     Icon(Icons.keyboard_arrow_right, color: UIComponent.list.trailingIconColor, size: 30.0),
     onTap: () {
-      this.info.scheduleData = data;
-      navigateToDoctorAppointment(this.info);
+      this.presenter.onSelectItem(data);
     },
   );
 
@@ -81,19 +97,4 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
     ),
   );
 
-  void navigateToDoctorAppointment(AppointmentInfo info){
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DoctorAppointment(info:info),
-      ),
-    );
-  }
-  Future<List<DoctorScheduleListData>> getDoctorlScheduleBy(int hospitalID, int doctorID) async{
-    var service = DoctorService();
-    var scheduleData =await service.getDoctorSchedule(hospitalID, doctorID);
-    if (scheduleData.code == 200){
-      return scheduleData.data;
-    }
-  }
 }
