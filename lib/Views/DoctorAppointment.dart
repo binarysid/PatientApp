@@ -2,22 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:common_utils/NetworkCode.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
-import 'package:patientapp/Services/DoctorService.dart';
+import 'package:patientapp/Presenter/DoctorAppointmentPresenter.dart';
 import 'package:patientapp/Model/DoctorAppointmentData.dart';
-import 'DoctorAppointmentConfirmationView.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
-class DoctorAppointmentView extends StatefulWidget {
+class DoctorAppointment extends StatefulWidget {
   AppointmentInfo info;
-  DoctorAppointmentView({Key key, this.info}) : super(key: key);
+  DoctorAppointment({Key key, this.info}) : super(key: key);
   @override
-  _DoctorAppointmentViewState createState() => _DoctorAppointmentViewState(info: this.info);
+  _DoctorAppointmentState createState() => _DoctorAppointmentState(info: this.info);
 }
 
-class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
+class _DoctorAppointmentState extends State<DoctorAppointment> implements DoctorAppointmentInterface {
   AppointmentInfo info;
-  _DoctorAppointmentViewState({Key key, this.info});
+  _DoctorAppointmentState({Key key, this.info});
   Loader loader = Loader(false);
+  DoctorAppointmentPresenter presenter;
+  @override
+  void initState() {
+    // TODO: implement initState
+    presenter = DoctorAppointmentPresenter(delegate: this,context: context,appointmentInfo: this.info);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,24 +69,8 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
                 ),
                 Divider(color: Colors.black,height: 30,),
                 ActionButton(onPressed: () async {
-                  loader.showLoader();
-                  setState(() {
-
-                  });
-                  var appointMentData = await this.makeAppointment(this.info);
-                  loader.hideLoader();
-                  setState(() {
-
-                  });
-                  if(appointMentData.code == NetworkCode.success) {
-                    this.info.appointmentData = appointMentData;
-                    this.navigateToAppointmentConfirm(this.info);
-                  }
-                  else{
-                    CommonToast.showToastForAsyncRequest(appointMentData.message,duration: ToastLength.LONG);
-                  }
-                },
-                    title:  "Confirm appointment"
+                  await this.presenter.makeAppointment();
+                }, title:  "Confirm appointment"
                 ),
             ],
           ),
@@ -89,17 +79,21 @@ class _DoctorAppointmentViewState extends State<DoctorAppointmentView> {
       ),//_doctorProfileView(this.info),
     );
   }
-  void navigateToAppointmentConfirm(AppointmentInfo info){
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DoctorAppointmentConfirmationView(info:info),
-      ),
-    );
+
+  @override
+  void showMessage(String message) {
+    CommonToast.showToastForAsyncRequest(message,duration: ToastLength.LONG);
   }
-  Future<DoctorAppointmentData> makeAppointment(AppointmentInfo info) async{
-    var service = DoctorService();
-    var appointmentData =await service.makeAppointment(info);
-    return appointmentData;
+
+  @override
+  void showLoader() {
+    loader.showLoader();
+    setState(() {});
+  }
+
+  @override
+  void hideLoader() {
+    loader.hideLoader();
+    setState(() {});
   }
 }

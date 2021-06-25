@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Services/DoctorService.dart';
 import 'package:patientapp/Model/DoctorScheduleListData.dart';
-import 'DoctorAppointmentView.dart';
+import 'DoctorAppointment.dart';
 import 'package:patientapp/Helper/CommonViews.dart';
 import 'package:patientapp/Helper/BottomBar.dart';
 
@@ -85,7 +85,7 @@ class _DoctorScheduleListViewState extends State<DoctorScheduleListView> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DoctorAppointmentView(info:info),
+        builder: (context) => DoctorAppointment(info:info),
       ),
     );
   }
