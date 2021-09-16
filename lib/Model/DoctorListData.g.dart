@@ -15,7 +15,7 @@ DoctorListData _$DoctorListDataFromJson(Map<String, dynamic> json) {
     json['address'] as String,
     json['specialization'] as String,
     json['photo'] as String,
-    json['profile_completion_percentage'] as int,
+    json['profile_completion_ratio'] as int,
   );
 }
 
@@ -28,5 +28,5 @@ Map<String, dynamic> _$DoctorListDataToJson(DoctorListData instance) =>
       'phone': instance.phone,
       'specialization': instance.specialization,
       'photo': instance.photo,
-      'profile_completion_percentage': instance.profileCompletionPercentage,
+      'profile_completion_ratio': instance.profileCompletionPercentage,
     };

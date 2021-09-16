@@ -9,7 +9,7 @@ class RestURL{
   static final login = patientBaseURL + "loginpatient";
   static final register = patientBaseURL + "registerpatient";
   static final updateProfile = patientBaseURL + "updateinfo";
-  static final hospitalList = hospitalBaseURL + "hospitals";
+  static final hospitalList = hospitalBaseURL + "list";
   static final specializationList = hospitalBaseURL + "specializationlist";
   static final doctorList = doctorBaseURL + "list";
   static final doctorProfile = hospitalBaseURL + "doctorProfileBy";
@@ -17,4 +17,7 @@ class RestURL{
   static final doctorAppointment = hospitalBaseURL + "doctorappointment";
   static final appointmentList = patientBaseURL + "getappointments";
   static final commonHeader = {"Content-type": "application/json"};
+  static Map<String, String> getCommonHeader(){
+    return { "Accesstoken": "access_token"};
+  }
 }

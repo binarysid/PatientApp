@@ -41,8 +41,13 @@ class _DoctorListBySpecializationViewState extends State<DoctorListBySpecializat
             builder: (context,snapshot){
               if (snapshot.connectionState==ConnectionState.done){
                 loader.hideLoader();
-                this.doctors = snapshot.data;
-                return _doctorListView(this.doctors);
+                if(snapshot.hasData) {
+                  this.doctors = snapshot.data;
+                  return _doctorListView(this.doctors);
+                }
+                else{
+                  return Text('');
+                }
               } else{
                 return loader;
               }

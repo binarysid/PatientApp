@@ -7,21 +7,20 @@ import 'package:patientapp/Model/AppointmentInfo.dart';
 import 'package:patientapp/Model/UserData.dart';
 import 'package:patientapp/Model/DoctorAppointmentData.dart';
 import 'package:patientapp/Helper/RestURL.dart';
+import 'package:common_utils/Services/AsyncNet.dart';
 
 class DoctorService{
 
   Future<DoctorData> getDoctorListBy(int hospitalID,{int specializationID, String specialization} ) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':'$hospitalID'};
+      Map<String, String> jsonMap = {'hospital_id':'$hospitalID'};
       if(specializationID != null){
         jsonMap['specialization_id'] = '$specializationID';
       }
       else if(specialization != null){
         jsonMap['specialization'] = '$specialization';
       }
-      String body = json.encode(jsonMap);
-      var url = Uri.parse(RestURL.doctorList);
-      Response response = await post(url, body:jsonMap);
+      var response = await AsyncNet.request(requestURL: RestURL.doctorList, method: 'GET',body: jsonMap,header: RestURL.getCommonHeader());
       Map data = jsonDecode(response.body);
       return DoctorData.fromJson(data);
     }
@@ -31,9 +30,8 @@ class DoctorService{
   }
   Future<DoctorProfileModel> getDoctorProfileBy(int hospitalID,int doctorID) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
-      var url = Uri.parse(RestURL.doctorProfile);
-      Response response = await post(url, body:jsonMap);
+      Map<String, String> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
+      var response = await AsyncNet.request(requestURL: RestURL.doctorProfile, method: 'POST',body: jsonMap,header: RestURL.getCommonHeader());
       Map data = jsonDecode(response.body);
       return DoctorProfileModel.fromJson(data);
     }
@@ -43,10 +41,8 @@ class DoctorService{
   }
   Future<DoctorScheduleData> getDoctorSchedule(int hospitalID,int doctorID) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
-//      String body = json.encode(jsonMap);
-      var url = Uri.parse(RestURL.doctorSchedules);
-      Response response = await post(url, body:jsonMap);
+      Map<String, String> jsonMap = {'hospital_id':'${hospitalID}', 'doctor_id':'${doctorID}'};
+      var response = await AsyncNet.request(requestURL: RestURL.doctorSchedules, method: 'POST',body: jsonMap,header: RestURL.getCommonHeader());
       Map data = jsonDecode(response.body);
       return DoctorScheduleData.fromJson(data);
     }
@@ -56,10 +52,8 @@ class DoctorService{
   }
   Future<DoctorAppointmentData> makeAppointment(AppointmentInfo info) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':'${info.hospitalData.id}', 'doctor_id':'${info.doctorData.id}','visit_time':info.doctorProfileData.visitStartTime,'visit_date':info.scheduleData.date,'patient_name':info.userData.name,'patient_phone':info.userData.phone,'patient_id':'${info.userData.id}'};
-      String body = json.encode(jsonMap);
-      var url = Uri.parse(RestURL.doctorAppointment);
-      Response response = await post(url, body:jsonMap);
+      Map<String, String> jsonMap = {'hospital_id':'${info.hospitalData.id}', 'doctor_id':'${info.doctorData.id}','visit_time':info.doctorProfileData.visitStartTime,'visit_date':info.scheduleData.date,'patient_name':info.userData.name,'patient_phone':info.userData.phone,'patient_id':'${info.userData.id}'};
+      var response = await AsyncNet.request(requestURL: RestURL.doctorAppointment, method: 'POST',body: jsonMap,header: RestURL.getCommonHeader());
       Map data = jsonDecode(response.body);
       return DoctorAppointmentData.fromJson(data);
     }

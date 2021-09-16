@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:patientapp/Model/HospitalListData.dart';
 import 'package:patientapp/Model/SpecializationData.dart';
 import 'package:patientapp/Helper/RestURL.dart';
+import 'package:common_utils/Services/AsyncNet.dart';
 
 class HospitalService{
 
@@ -21,8 +22,7 @@ class HospitalService{
   }
   Future<HospitalData> getHospitalList() async{
     try {
-      var url = Uri.parse(RestURL.hospitalList);
-      Response response = await post(url, headers: RestURL.commonHeader);
+      var response = await AsyncNet.request(requestURL: RestURL.hospitalList, method: 'GET',body: null,header: RestURL.getCommonHeader());
       Map data = jsonDecode(response.body);
       return HospitalData.fromJson(data);
     }
@@ -32,10 +32,8 @@ class HospitalService{
   }
   Future<SpecializationData> getSpecializationListBy(int hospitalID) async{
     try {
-      Map<String, dynamic> jsonMap = {'hospital_id':'${hospitalID}'};
-//      String body = json.encode(jsonMap);
-      var url = Uri.parse(RestURL.specializationList);
-      Response response = await post(url,body:jsonMap);
+      Map<String, String> jsonMap = {'hospital_id':'${hospitalID}'};
+      var response = await AsyncNet.request(requestURL: RestURL.specializationList, method: 'POST',body: jsonMap,header: RestURL.getCommonHeader());
       Map data = jsonDecode(response.body);
       return SpecializationData.fromJson(data);
     }

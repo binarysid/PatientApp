@@ -10,7 +10,7 @@ class DoctorListData {
   String phone;
   String specialization;
   String photo;
-  @JsonKey(name: 'profile_completion_percentage')
+  @JsonKey(name: 'profile_completion_ratio')
   int profileCompletionPercentage;
 
   DoctorListData(this.id, this.name,this.phone,
